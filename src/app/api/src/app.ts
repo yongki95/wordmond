@@ -2,51 +2,33 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
 
-import { resolvers, typeDefs } from "./graphql";
-const app = express();
+import { app as restApi } from './rest/index';
+import { type_defs as typeDefs } from "./graphql/type_defs";
+import { resolvers } from "./graphql/resolvers";
+
 const port = 3000;
 
 //mongo URI
-const MONGO_URI = "mongodb://127.0.0.1:27017/"
+const MONGO_URI = "mongodb://localhost:27017/wordmond"
 
 
-//rest API ==> create new folder and put it there later**
-app.get('/', (_, res) => {
-    res.send({
-        massage: "ok",
-        uptime: process.uptime(),
-    });
-});
+async function start() {
+    const app = express();
 
-const apolloServer = new ApolloServer({
-    typeDefs,
-    resolvers
-});
+    app.use('/',restApi);
 
-//create new folder and .ts and move to there
-const initDB = async () => {
-    mongoose
-    .connect(MONGO_URI)
-    .then(() => {
-        console.log(`DB connected`);
-    })
-    .catch(err => {
-        console.log(err.message);
-    });
-};
-
-const start = async () => {
+    const apolloServer = new ApolloServer({ typeDefs, resolvers});
     await apolloServer.start();
-    await initDB();
+    await mongoose.connect(MONGO_URI);
 
-    apolloServer.applyMiddleware({app, path: "/graphql"});
+    apolloServer.applyMiddleware({app, path: '/graphql'});
 
-    app.listen(port, () => {
+
+    app.listen({ port }, () => {
         console.log(`http://localhost:${port}`);
-        console.log(`typescript with express http://localhost:${port}${apolloServer.graphqlPath}/`);
-    });
-};
+        console.log(`Server is ready at http://localhost:${port}${apolloServer.graphqlPath}`);
+    })
+
+}
 
 start();
-
-
