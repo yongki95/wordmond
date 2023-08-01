@@ -17,11 +17,11 @@ async function start() {
 
     app.use('/',restApi);
 
-    const apolloServer = new ApolloServer({ typeDefs, resolvers});
-    await apolloServer.start();
+    const apollo_server = new ApolloServer({ typeDefs, resolvers});
+    await apollo_server.start();
     await mongoose.connect(MONGO_URI);
 
-    apolloServer.applyMiddleware({app, path: '/graphql'});
+    apollo_server.applyMiddleware({app, path: '/graphql'});
 
 
     app.listen({ port }, () => {
