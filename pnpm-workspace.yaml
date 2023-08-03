@@ -1,0 +1,6 @@
+packages:
+  - src/apps/*
+  - src/packages/*
+
+  # exclude packages that are inside test directories
+  - "!**/src/test/**"
