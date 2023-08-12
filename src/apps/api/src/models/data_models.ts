@@ -1,15 +1,31 @@
-import mongoose, { Document, Schema } from "mongoose";
+// import mongoose, { Document, Schema } from 'mongoose';
 
-export interface bd_word extends Document {
-    level: number;
-    eng: string;
-    kor: string;
-}
+// export interface Word extends Document {
+//     level: number;
+//     eng: string;
+//     kor: string;
+// };
 
-export const word_schema = new Schema<bd_word>({
-    level: { type:Number, required: true },
-    eng: { type:String, required: true },
-    kor: { type:String, required: true },
-});
+// export const wordSchema = new Schema<Word>({
+//     level: { type:Number, required: true },
+//     eng: { type:String, required: true },
+//     kor: { type:String, required: true },
+// });
 
-export const Word = mongoose.model<bd_word>('Word', word_schema);
+// export const Word = mongoose.model<Word>('Word', wordSchema);
+
+import { prop, getModelForClass } from '@typegoose/typegoose';
+import { Document } from 'mongoose';
+
+export class words extends Document {
+    @prop({ required: true })
+    public level!: number;
+
+    @prop({ required: true })
+    public eng!: string;
+
+    @prop({ required: true })
+    public kor!: string;
+};
+
+export const Word = getModelForClass(words);
