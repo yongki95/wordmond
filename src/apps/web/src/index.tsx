@@ -7,24 +7,9 @@ import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client
 import { createHttpLink } from '@apollo/client';
 
 export const client = new ApolloClient({
-  uri: 'http://localhost:8000/',
+  uri: 'http://localhost:8000/graphql',
   cache: new InMemoryCache(),
 });
-
-client
-  .query({
-    query: gql`
-      query GetWords {
-        Word {
-          id
-          level
-          eng
-          kor
-        }
-      }
-    `,
-  })
-  .then((result) => console.log(result));
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
