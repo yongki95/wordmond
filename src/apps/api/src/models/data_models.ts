@@ -1,21 +1,5 @@
-// import mongoose, { Document, Schema } from 'mongoose';
-
-// export interface Word extends Document {
-//     level: number;
-//     eng: string;
-//     kor: string;
-// };
-
-// export const wordSchema = new Schema<Word>({
-//     level: { type:Number, required: true },
-//     eng: { type:String, required: true },
-//     kor: { type:String, required: true },
-// });
-
-// export const Word = mongoose.model<Word>('Word', wordSchema);
-
-import { prop, getModelForClass } from '@typegoose/typegoose';
 import { Document } from 'mongoose';
+import { getModelForClass, prop } from '@typegoose/typegoose';
 
 export class words extends Document {
     @prop({ required: true })

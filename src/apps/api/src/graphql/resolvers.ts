@@ -1,4 +1,4 @@
-import { Word } from '../models/data_models';
+import { Word } from '../models';
 
 export const resolvers = {
   Query: {
