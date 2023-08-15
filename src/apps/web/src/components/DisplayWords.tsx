@@ -1,5 +1,4 @@
 import { WordItem } from './WordItem';
-
 import { useWordQuery } from './useWordQuery';
 
 export const DisplayWords = ({ page, limit, level }: DisplayWordsProps) => {
