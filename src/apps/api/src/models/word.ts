@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 import { getModelForClass, prop } from '@typegoose/typegoose';
 
-export class words extends Document {
+export class Word extends Document {
     @prop({ required: true })
     public level!: number;
 
@@ -12,4 +12,4 @@ export class words extends Document {
     public kor!: string;
 };
 
-export const Word = getModelForClass(words);
+export const WordModel = getModelForClass(Word);
