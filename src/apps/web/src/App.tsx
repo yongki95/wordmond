@@ -1,9 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
 import './App.css';
 
+
 import { DisplayWords } from './components/DisplayWords';
+import { DropDownButton } from './components/DropDownButton';
+
 export default function App() {
+  const handleSelect = (selected: string) => {
+    console.log('Selected:', selected);
+  }
+
   return (
     <div>
       <h2>Wordmond 🚀</h2>

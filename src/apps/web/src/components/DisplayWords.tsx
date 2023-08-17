@@ -1,5 +1,5 @@
 import { WordItem } from './WordItem';
-import { useWordQuery } from './useWordQuery';
+import { useWordQuery } from './use_word_query';
 
 export const DisplayWords: React.FC<DisplayWordsProps> = ({ page, limit, level }) => {
   const { loading, error, data } = useWordQuery({ page, limit, level });
