@@ -23,6 +23,27 @@ export const typeDefs = gql`
     data: Word
   }
 
+  type DeleteWordIdResult {
+    success: Boolean!
+    error: String
+  }
+
+  type deleteWordByFieldResult {
+    success: Boolean!
+    error: String
+  }
+
+  type UpdateWordKorResult {
+    success: Boolean!
+    error: String
+  }
+
+  type SearchWordResult {
+    success: Boolean!
+    error: String
+    data: Word
+  }
+
 	input WordInput {
 		level: Int!
 		eng: String!
@@ -46,11 +67,24 @@ export const typeDefs = gql`
 		getWord(
       _id: ID!
     ): GetWordResult!
+
+    searchWord(
+      term: String!
+    ): SearchWordResult!
 	}
 
 	type Mutation {
 		createWord(
 			data: WordInput!
-		): CreateWordResult!
+  ): CreateWordResult!
+
+		deleteWordById(
+			_id: ID!
+		): DeleteWordIdResult!
+
+    updateWordKor(
+		  eng: String!
+		  kor: String!
+    ): UpdateWordKorResult!
 	}
 `;

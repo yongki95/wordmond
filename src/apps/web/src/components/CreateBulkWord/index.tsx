@@ -31,7 +31,7 @@ export const CreateBulkWord: FC = () => {
       }
     }
   `);
-
+  
   const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   }, []);
@@ -72,7 +72,6 @@ export const CreateBulkWord: FC = () => {
 
     await Bluebird.each(items, async (data) => {
       log('add...', JSON.stringify(data));
-
 
       const response = await createWord({
         variables: {

@@ -2,24 +2,21 @@ import React, { FC, useState } from 'react';
 import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
 import './App.css';
 import { CreateBulkWord } from './components/CreateBulkWord';
-
-// import { DisplayWords } from './components/DisplayWords';
-// import { DropDownButton } from './components/DropDownButton';
+import { DeleteWord } from './components/DeleteWord';
+import { DeleteBulkWord } from './components/DeleteBulkWord';
+import { SearchkWord } from './components/SearchWord';
+import { UpdateWordKor } from './components/UpdateWord';
 
 export default function App() {
-  // const handleSelect = (selected: string) => {
-  //   console.log('Selected:', selected);
-  // }
-
   return (
     <div>
       <h2>Wordmond 🚀</h2>
 
-      <CreateBulkWord />
-      {/* <br/>
-        <div id='level_container'>
-        {[...Array(5)].map((_, i) => <DisplayWords key={i} page={1} limit={10} level={i + 1}/>)}
-        </div> */}
+      {/* <CreateBulkWord /> */}
+      {/* <DeleteWord /> */}
+      {/* <DeleteBulkWord /> */}
+      <SearchkWord />
+      {/* <UpdateWordKor /> */}
     </div>
   );
 };

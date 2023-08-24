@@ -56,7 +56,35 @@ const getWord: Resolver<{
   }
 };
 
+const searchWord: Resolver<{
+  term: string;
+}, {
+  success: boolean;
+  error?: string;
+  data?: Word | null;
+}> = async (_, { term }) => {
+  try {
+    const data = await WordModel.findOne({
+      $or: [
+        { eng: term },
+        { kor: term },
+      ]
+  });
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (e: any) {
+    return {
+      success: false,
+      error: e.message,
+    };
+  }
+};
+
 export {
   paginateWord,
   getWord,
+  searchWord,
 };
