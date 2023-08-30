@@ -1,22 +1,21 @@
-import React, { FC, useState } from 'react';
-import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
+import React from 'react';
 import './App.css';
-import { CreateBulkWord } from './components/CreateBulkWord';
-import { DeleteWord } from './components/DeleteWord';
-import { DeleteBulkWord } from './components/DeleteBulkWord';
-import { SearchkWord } from './components/SearchWord';
-import { UpdateWordKor } from './components/UpdateWord';
+import styled from 'styled-components';
+import { Layout } from './pages/Layout';
+import { MainHeader } from './components/MainHeader';
+import { MainBody } from './components/MainBody';
 
-export default function App() {
+export default function App () {
   return (
-    <div>
-      <h2>Wordmond 🚀</h2>
+    <Wrapper>
+      <Layout>
+        <MainHeader/>
+        <MainBody/>
+      </Layout>
+    </Wrapper>
+  )
+}
 
-      {/* <CreateBulkWord /> */}
-      {/* <DeleteWord /> */}
-      {/* <DeleteBulkWord /> */}
-      <SearchkWord />
-      {/* <UpdateWordKor /> */}
-    </div>
-  );
-};
+const Wrapper = styled.div`
+  
+`;

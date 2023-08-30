@@ -22,11 +22,5 @@
   },
   "include": [
     "src"
-  ],
-  "types": [
-    "node", 
-    "jest", 
-    "@testing-library/jest-dom"
-  ],
-
+  ]
 }
