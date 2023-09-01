@@ -27,6 +27,5 @@ const Logo = styled.div`
   font-size: 20px;
   display:flex;
   align-items: center;
-  padding-left: 16px;
 `;
 

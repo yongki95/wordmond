@@ -1,10 +1,11 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const menuList = [
   { title: 'Home', url:'/'},
-  { title: 'Words', url:'/'},
-  { title: 'About', url:'/'},
+  { title: 'Word', url:'/Word'},
+  { title: 'About', url:'/About'},
 ]
 
 export const NavMenu = () => {
@@ -13,7 +14,7 @@ export const NavMenu = () => {
       {menuList.map((menu, index) => {
         return (
           <ul key={index}>
-            <a href={menu.url}>{menu.title}</a>
+            <Link to={menu.url}>{menu.title}</Link>
           </ul>
         )
       })}
