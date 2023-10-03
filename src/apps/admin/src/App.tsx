@@ -18,23 +18,23 @@ export default function App() {
   return (
     <div>
 
-      <Layout>
-        <Header headerName='Profile'/>
+      {/* <Layout> */}
+        {/* <Header headerName='Profile'/> */}
         {/* <List /> */}
         {/* <MainDashboard /> */}
-        <General />
-      </Layout>
+        {/* <General /> */}
+      {/* </Layout> */}
 
 
 
-      {false && <>
-        <h2>Wordmond 🚀</h2>
-        {/* <CreateBulkWord /> */}
+      {/* {false && <>
+        <h2>Wordmond 🚀</h2> */}
+        <CreateBulkWord />
         {/* <DeleteWord /> */}
         {/* <DeleteBulkWord /> */}
         {/* <SearchkWord /> */}
         {/* <UpdateWordKor /> */}
-      </>}
+      {/* </>} */}
     </div>
   );
 };

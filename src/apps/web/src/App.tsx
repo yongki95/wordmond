@@ -1,26 +1,19 @@
 import React from 'react';
 import './App.css';
 import styled from 'styled-components';
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { Layout } from './pages/Layout';
-import { MainHeader } from './components/MainHeader';
 import { MainBody } from './components/MainBody';
+import { GNB } from './components/GNB';
+import { Layout } from './pages/Layout';
 
-
-export default function App () {
+export const App = () => {
   return (
     <BrowserRouter>
-      <Wrapper>
-        <Layout>
-          <MainHeader/>
-          <MainBody/>
-        </Layout>
-      </Wrapper>
+      <Layout>
+        <GNB/>
+        <MainBody/>
+      </Layout>
     </BrowserRouter>
   );
 };
-
-const Wrapper = styled.div`
-
-`;

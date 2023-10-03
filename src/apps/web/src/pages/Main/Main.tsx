@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
-import { TopMain } from '../../components/BodyComponents/TopMain'
-import { MiddleMain } from '../../components/BodyComponents/MiddleMain'
+import { HeroSession } from './HeroSession';
+import { MiddleMain } from '../../components/BodyComponents/MiddleMain';
+import { BarChart } from '../../components/BodyComponents/Graph/Graph';
+import { BottomMain } from '../../components/BodyComponents/BottomMain';
+import { Footer } from '../../components/BodyComponents/Footer';
 
 export const Home = () => {
   return (
     <Wrapper>
-      <TopMain/>
+      <HeroSession/>
       <MiddleMain/>
+      <BarChart/>
+      <BottomMain/>
+      <Footer/>
     </Wrapper>
   )
 }
@@ -15,3 +21,5 @@ export const Home = () => {
 const Wrapper = styled.div`
   
 `;
+
+

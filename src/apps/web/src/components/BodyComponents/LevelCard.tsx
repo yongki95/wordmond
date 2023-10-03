@@ -1,28 +1,23 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-solid-svg-icons';
 import React, { FC } from 'react';
 import styled from 'styled-components'
 
-
-
-type Props = {
+type LevelCardProps = {
   level: number;
-  styles: {
-    width: number;
-    height: number;
-    backgroundColor: string;  
-  }
-}
+  style?: React.CSSProperties;
+};
 
-export const LevelCard: FC<Props> = (Props) => {
-  return (
-    <Wrapper style={{ width:`${Props.styles.width}px`, height:`${Props.styles.height}px`, background: `${Props.styles.backgroundColor}`}} >
-        <h3>level: {Props.level}</h3>
-        <FontAwesomeIcon icon={faFaceSmile} size="6x" style={{ color: "black" }} />{' '}
-    </Wrapper>
-  );
-}
-
+export const LevelCard: FC<LevelCardProps> = ({ style, level }) => (
+  <Wrapper style={style} >
+    <h3>level: {level}</h3>
+    <FontAwesomeIcon
+      icon={faFaceSmile}
+      size="6x"
+      style={{ color: "black" }}
+    />
+  </Wrapper>
+);
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,7 +30,7 @@ const Wrapper = styled.div`
   font-size: 34px;
   overflow: hidden;
 
-  & svg {
+  svg {
     position: absolute;
     left: 65%;
     top: 30%;

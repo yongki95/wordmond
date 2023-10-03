@@ -1,9 +1,9 @@
-import React, { FC, ReactNode } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const menuList = [
-  { title: 'Home', url:'/'},
+  { title: 'Dashboard', url:'/UserDashboard'},
   { title: 'Word', url:'/Word'},
   { title: 'About', url:'/About'},
 ]
@@ -19,26 +19,17 @@ export const NavMenu = () => {
         )
       })}
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
   display: flex;
-
+  flex-direction: column;
+  margin-top: 12px;
   & ul {
-    padding-left: 32px;
-    width: 50px;
-  }
-
-  & a {
-    text-decoration: none;
-    color: black;
-    font-size: 12px;
+    padding: 0;
+    font-size: 16px;
     font-weight: bold;
   }
 
-  & a:hover {
-    font-size: 14px;
-  }
 `;
-

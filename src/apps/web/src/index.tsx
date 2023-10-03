@@ -1,22 +1,42 @@
+import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+import { App } from './App';
+import { AuthProvider } from './auth';
+import { GRAPHQL_ENDPOINT, LOCAL_STORAGE_KEY_TOKEN } from './constants';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const httpLink = new HttpLink({ uri: GRAPHQL_ENDPOINT });
+
+const authLink = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem(LOCAL_STORAGE_KEY_TOKEN);
+
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  });
+
+  return forward(operation);
+});
 
 export const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql',
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 })
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
+
 root.render(
-  <ApolloProvider client = {client}>
+  <ApolloProvider client={client}>
     <React.StrictMode>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </React.StrictMode>
   </ApolloProvider>
 );

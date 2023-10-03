@@ -2,15 +2,6 @@ import { gql, useMutation } from "@apollo/client";
 import Bluebird from "bluebird";
 import { FC, useCallback, useMemo, useState } from "react";
 
-// [한주간 할일]
-// 1. 만들어보기 수정, 삭제, 검색 기능 추가
-// 2. antd 적용해보기
-// 3. styled-components 적용해보기
-
-// [후순위 공부거리]
-// 찾아보기 react context 배워오기
-// 찾아보기 pnpm 패키지 bluebird, @types/bluebird
-// 찾아보기 nodejs destructuring
 
 export const CreateBulkWord: FC = () => {
   const [message, setMessage] =  useState<string>('');
@@ -67,7 +58,7 @@ export const CreateBulkWord: FC = () => {
         level: Number(level),
         eng,
         kor,
-      };
+      };  
     });
 
     await Bluebird.each(items, async (data) => {

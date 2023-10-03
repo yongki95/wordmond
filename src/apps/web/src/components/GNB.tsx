@@ -1,24 +1,21 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { NavMenu } from './NavMenu/NavMenu';
+import { NavMenu } from './NavMenu';
 
-export const MainHeader = () => {
+export const GNB = () => {
   return (
     <Wrapper>
-      <Logo>
-        Wordmond
-      </Logo>
+      <Logo>Wordmond</Logo>
       <NavMenu/>
     </Wrapper>
   );
 }
- 
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0px 20%;
 `;
 
 const Logo = styled.div`
