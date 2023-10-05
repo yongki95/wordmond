@@ -39,7 +39,7 @@ const loginUser: Resolver<{
       
       return {
         success: true,
-        authorizedID: user.token,
+        token: user.token,
       };
     } else {
       return {

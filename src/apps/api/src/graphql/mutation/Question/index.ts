@@ -1,7 +1,7 @@
 import { Question, QuestionModel } from '../../../models';
 import { Resolver } from '../../type';
 
-const saveQuestion: Resolver<{
+const saveTestQuestion: Resolver<{
   data: Pick<Question, 'word' | 'answer' | 'choices' | 'userAnswer'>;
 }, {
   success: boolean;
@@ -23,5 +23,5 @@ const saveQuestion: Resolver<{
 };
 
 export {
-  saveQuestion,
+  saveTestQuestion,
 };

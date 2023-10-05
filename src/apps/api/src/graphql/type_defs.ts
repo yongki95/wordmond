@@ -14,7 +14,7 @@ export const typeDefs = gql`
 		_id: ID!
 		email: String!
 		password: String!
-		authroizedID: String!
+		token: String!
 		testHistories: [TestHistory!]!
 	}
 
@@ -137,7 +137,7 @@ export const typeDefs = gql`
 		password: String!
 	}
 
-	input QuestionInput {
+	input TestQuestionInput {
 		word: String!
 		answer: String!
 		choices: [String!]!
@@ -150,7 +150,7 @@ export const typeDefs = gql`
 		score: Int!
 		level: Int!
 		language: String!
-		questions: [QuestionInput!]!
+		questions: [TestQuestionInput!]!
 	}
 	
 	type GetUserAccountByTokenResult {
@@ -171,7 +171,7 @@ export const typeDefs = gql`
 		data: [TestHistory!]
 	}
 
-	type SaveQuestionResult {
+	type SaveTestQuestionResult {
 		success: Boolean!
 		error: String
 		_id: ID
@@ -180,7 +180,7 @@ export const typeDefs = gql`
 	type LoginUserResult {
 		success: Boolean!
 		error: String
-		authorizedID: ID
+		token: String!
 	}
 	
 	type Query {
@@ -260,9 +260,9 @@ export const typeDefs = gql`
 			data: LoginInput!
 		): LoginUserResult!
 
-		saveQuestion(
-			data: QuestionInput!
-		): SaveQuestionResult!
+		saveTestQuestion(
+			data: TestQuestionInput!
+		): SaveTestQuestionResult!
 
 		saveTestHistory(
 			data: TestHistoryInput!
