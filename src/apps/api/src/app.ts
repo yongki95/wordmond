@@ -7,11 +7,9 @@ import { createServer } from 'http';
 import mongoose from 'mongoose';
 import { WebSocketServer } from 'ws';
 
+import { PORT, MONGO_URI } from './constants';
 import { resolvers, typeDefs } from './graphql';
 import { app as restApi } from './rest/index';
-
-const PORT = 8000;
-const MONGO_URI = 'mongodb://localhost:27017/wordmond';
 
 const start = async () => {
   const app = express();
@@ -34,7 +32,7 @@ const start = async () => {
   const server = createServer(app);  
   server.listen({ port: PORT }, () => {
     console.log(`http://localhost:${PORT}`);
-    console.log(`Server is ready at http://localhost:${PORT}${ apolloServer.graphqlPath }`);
+    console.log(`Server is ready at http://localhost:${PORT}${apolloServer.graphqlPath}`);
   });
   
   const wsServer = new WebSocketServer({

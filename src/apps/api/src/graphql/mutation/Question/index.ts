@@ -6,12 +6,13 @@ const saveQuestion: Resolver<{
 }, {
   success: boolean;
   _id?: string;
-}> = async (_: any, { data }) => {
+}> = async (_, { data }) => {
   try {
-    const user = await QuestionModel.create(data);
+    const question = await QuestionModel.create(data);
+    
     return {
       success: true,
-      _id: user._id,
+      _id: question._id,
     };
   } catch (e: any) {
     return {
@@ -23,4 +24,4 @@ const saveQuestion: Resolver<{
 
 export {
   saveQuestion,
-}
+};

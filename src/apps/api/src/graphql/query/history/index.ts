@@ -1,7 +1,7 @@
 import { TestHistory, TestHistoryModel } from '../../../models';
 import { Resolver } from '../../type';
 
-export const getTestHistoriesByUser: Resolver<{
+const getTestHistoriesByUser: Resolver<{
   userId: string;
 }, {
   success: boolean;
@@ -10,7 +10,7 @@ export const getTestHistoriesByUser: Resolver<{
 }> = async (_, { userId }) => {
   try {
     const data = await TestHistoryModel.find({ user: userId });
-
+    
     return {
       success: true,
       data,
@@ -23,3 +23,6 @@ export const getTestHistoriesByUser: Resolver<{
   }
 };
 
+export {
+  getTestHistoriesByUser,
+};

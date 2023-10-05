@@ -6,12 +6,13 @@ const saveTestHistory: Resolver<{
 }, {
   success: boolean;
   _id?: string;
-}> = async (_: any, { data }) => {
+}> = async (_, { data }) => {
   try {
-    const hisotry = await TestHistoryModel.create(data);
+    const testHisotry = await TestHistoryModel.create(data);
+    
     return {
-      success: true,
-      _id: hisotry._id,
+      success: true,  
+      _id: testHisotry._id,
     };
   } catch (e: any) {
     return {
@@ -23,4 +24,4 @@ const saveTestHistory: Resolver<{
 
 export {
   saveTestHistory,
-}
+};

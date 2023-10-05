@@ -3,7 +3,6 @@ import { Resolver } from '../../type';
 
 const getQuestionsByTestHisory: Resolver<{}, Question[], ITestHistory> = async ({questions},) => {
   const data = await QuestionModel.find({_id: {$in: questions}});
-  
   return data;
 };
 

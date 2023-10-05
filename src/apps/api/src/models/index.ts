@@ -1,5 +1,5 @@
 export * from './word';
-export * from './User';
+export * from './user';
 export * from './test_history';
-export * from './Question';
+export * from './question';
 

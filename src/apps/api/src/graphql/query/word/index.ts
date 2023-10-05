@@ -1,6 +1,7 @@
-import { ID } from "graphql-ws";
-import { Word, WordModel } from "../../../models";
-import { Resolver } from "../../type";
+import { ID } from 'graphql-ws';
+
+import { Word, WordModel } from '../../../models';
+import { Resolver } from '../../type';
 
 const paginateWord: Resolver<{
   query: any;
@@ -77,7 +78,6 @@ const getWordByLevel: Resolver<{
   error?: string;
   data?: Word[];
 }> = async (_, { level, skip }) => {
-
   try {
     const total = await WordModel.countDocuments({level});
     const data = await WordModel.find({level}).skip(skip).limit(1);
@@ -110,7 +110,7 @@ const getEveryWordsByLevel: Resolver<{
       success: true,
       data,
       total
-    }
+    };
   } catch (e:any) {
     return {
       success: false,
@@ -176,8 +176,7 @@ const getWordQuizOptions: Resolver<{
       success: true,
       data
     };
-  }
-  catch (e: any) {
+  } catch (e: any) {
     return {
       success: false,
       error: e.message
@@ -198,7 +197,7 @@ const searchWord: Resolver<{
         { eng: term },
         { kor: term },
       ]
-  });
+    });
 
     return {
       success: true,

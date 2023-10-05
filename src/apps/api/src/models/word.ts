@@ -1,5 +1,5 @@
-import { Document } from 'mongoose';
 import { getModelForClass, prop } from '@typegoose/typegoose';
+import { Document } from 'mongoose';
 
 export class Word extends Document {
   @prop({ required: true })

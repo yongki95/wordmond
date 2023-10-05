@@ -1,14 +1,15 @@
-import { Word, WordModel } from "../../../models";
-import { Resolver } from "../../type";
+import { Word, WordModel } from '../../../models';
+import { Resolver } from '../../type';
 
 const createWord: Resolver<{
   data: Pick<Word, 'level' | 'eng' | 'kor'>;
 }, {
   success: boolean;
   _id?: string;
-}> = async (_: any, { data }) => {
+}> = async (_, { data }) => {
   try {
     const word = await WordModel.create(data);
+
     return {
       success: true,
       _id: word._id,
@@ -47,9 +48,10 @@ const updateWordKor: Resolver<{
 }, {
   success: boolean;
   error?: string;
-}> = async (_: any, { eng, kor }) => {
+}> = async (_, { eng, kor }) => {
   try {
-    const word = await WordModel.findOneAndUpdate({eng: eng}, {kor: kor}, {new: true});
+    await WordModel.findOneAndUpdate({eng: eng}, {kor: kor}, {new: true});
+    
     return {
       success: true,
     };

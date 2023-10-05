@@ -1,7 +1,8 @@
-import { Document } from 'mongoose';
 import { Ref, getModelForClass, prop } from '@typegoose/typegoose';
-import { Question } from './Question';
-import { User } from './User';
+import { Document } from 'mongoose';
+
+import { Question } from './question';
+import { User } from './user';
 
 export class TestHistory extends Document {
   @prop({ required: true, ref: () => User })

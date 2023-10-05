@@ -1,20 +1,19 @@
-import { User, UserModel } from "../../../models";
-import { Resolver } from "../../type";
+import { UserModel } from '../../../models';
+import { Resolver } from '../../type';
 
 const getUserIdByToken: Resolver<{
   userToken: string;
-},{
+}, {
   success: boolean;
   error?: string;
   _id?: string;
 }> = async (_, { userToken }) => {
   try {
-    const data = await UserModel.findOne({ authorizedID: userToken })
-
+    const userData = await UserModel.findOne({ authorizedID: userToken });
     return {
       success: true,
-      _id: data?._id,
-    }
+      _id: userData?._id,
+    };
   } catch (e: any) {
     return {
       success: false,
@@ -31,11 +30,11 @@ const getUserAccountByToken: Resolver<{
   userName?: string;
 }> = async (_, { userToken }) => {
   try {
-    const data = await UserModel.findOne({ authorizedID: userToken })
+    const userData = await UserModel.findOne({ authorizedID: userToken });
     return {
       success: true,
-      userName: data?.userName,
-    }
+      userName: userData?.userName,
+    };
   } catch (e: any) {
     return {
       success: false,
@@ -47,4 +46,4 @@ const getUserAccountByToken: Resolver<{
 export {
   getUserIdByToken,
   getUserAccountByToken,
-}
+};

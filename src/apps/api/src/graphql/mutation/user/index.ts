@@ -1,15 +1,17 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { User, UserModel } from '../../../models';
 import { Resolver } from '../../type';
-import { v4 as uuidv4 } from 'uuid';
 
 const createUser: Resolver<{
   data: Pick<User, 'userName' | 'password' | 'email'>;
 }, {
   success: boolean;
   _id?: string;
-}> = async (_: any, { data }) => {
+}> = async (_, { data }) => {
   try {
     const user = await UserModel.create(data);
+
     return {
       success: true,
       _id: user._id,
@@ -27,12 +29,14 @@ const loginUser: Resolver<{
 }, {
   success: boolean;
   _id?: string;
-}> = async (_: any, { data }) => {
+}> = async (_, { data }) => {
   try {
     const user = await UserModel.findOne({ userName: data.userName });
+    
     if (user && user.password === data.password) {
       user.authorizedID = uuidv4();
       await user.save();
+      
       return {
         success: true,
         authorizedID: user.authorizedID,
@@ -40,7 +44,7 @@ const loginUser: Resolver<{
     } else {
       return {
         success: false,
-        error: "Invalid username or password",
+        error: 'Invalid username or password',
       };
     }
   } catch (e: any) {
@@ -49,10 +53,10 @@ const loginUser: Resolver<{
       error: e.message,
     };
   }
-}
+};
 
 export {
   createUser,
   loginUser,
-}
+};
 
