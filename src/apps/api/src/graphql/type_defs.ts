@@ -14,7 +14,7 @@ export const typeDefs = gql`
 		_id: ID!
 		email: String!
 		password: String!
-		token: String!
+		token: String
 		testHistories: [TestHistory!]!
 	}
 
@@ -150,7 +150,7 @@ export const typeDefs = gql`
 		score: Int!
 		level: Int!
 		language: String!
-		questions: [TestQuestionInput!]!
+		questions: [ID!]!
 	}
 	
 	type GetUserAccountByTokenResult {

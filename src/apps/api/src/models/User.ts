@@ -10,7 +10,7 @@ export class User extends Document {
   public password!: string;
 
   @prop({ default: uuidv4})
-  token!: string;
+  public token?: string;
 
 };
 
