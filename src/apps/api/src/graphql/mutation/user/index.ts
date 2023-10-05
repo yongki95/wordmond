@@ -4,7 +4,7 @@ import { User, UserModel } from '../../../models';
 import { Resolver } from '../../type';
 
 const createUser: Resolver<{
-  data: Pick<User, 'userName' | 'password' | 'email'>;
+  data: Pick<User, 'eamil' | 'password'>;
 }, {
   success: boolean;
   _id?: string;
@@ -25,26 +25,26 @@ const createUser: Resolver<{
 };
 
 const loginUser: Resolver<{
-  data: Pick<User, 'userName' | 'password'>;
+  data: Pick<User, 'eamil' | 'password'>;
 }, {
   success: boolean;
   _id?: string;
 }> = async (_, { data }) => {
   try {
-    const user = await UserModel.findOne({ userName: data.userName });
+    const user = await UserModel.findOne({ eamil: data.eamil });
     
     if (user && user.password === data.password) {
-      user.authorizedID = uuidv4();
+      user.token = uuidv4();
       await user.save();
       
       return {
         success: true,
-        authorizedID: user.authorizedID,
+        authorizedID: user.token,
       };
     } else {
       return {
         success: false,
-        error: 'Invalid username or password',
+        error: 'Invalid eamil or password',
       };
     }
   } catch (e: any) {

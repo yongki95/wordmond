@@ -9,7 +9,7 @@ const getUserIdByToken: Resolver<{
   _id?: string;
 }> = async (_, { userToken }) => {
   try {
-    const userData = await UserModel.findOne({ authorizedID: userToken });
+    const userData = await UserModel.findOne({ token: userToken });
     return {
       success: true,
       _id: userData?._id,
@@ -30,10 +30,10 @@ const getUserAccountByToken: Resolver<{
   userName?: string;
 }> = async (_, { userToken }) => {
   try {
-    const userData = await UserModel.findOne({ authorizedID: userToken });
+    const userData = await UserModel.findOne({ token: userToken });
     return {
       success: true,
-      userName: userData?.userName,
+      userName: userData?.eamil,
     };
   } catch (e: any) {
     return {

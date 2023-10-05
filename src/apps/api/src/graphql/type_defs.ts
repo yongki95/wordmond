@@ -12,9 +12,8 @@ export const typeDefs = gql`
 
 	type User {
 		_id: ID!
-		userName: String!
-		password: String!
 		email: String!
+		password: String!
 		authroizedID: String!
 		testHistories: [TestHistory!]!
 	}
@@ -78,9 +77,8 @@ export const typeDefs = gql`
 	}
 
 	input CreateUserInput {
-		userName: String!
+		eamil: String!
 		password: String!
-		email: String!
 	}
 
 	type CreateUserResult {
@@ -135,7 +133,7 @@ export const typeDefs = gql`
 	}
 
 	input LoginInput {
-		userName: String!
+		eamil: String!
 		password: String!
 	}
 
@@ -158,7 +156,7 @@ export const typeDefs = gql`
 	type GetUserAccountByTokenResult {
 		success: Boolean!
 		error: String
-		userName: String!
+		eamil: String!
 	}
 
 	type SaveTestHistoryResult {
