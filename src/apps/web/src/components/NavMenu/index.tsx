@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import React, { FC, useState, useEffect, useCallback} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { FC, useState, useCallback} from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { useAuth, useSetToken } from '../../auth';
 
 const normalMenuList = [
   { title: 'Login', url:'/Login'},
-  { title: 'Sign Up', url: '/SignUp'}
+  { title: 'Sign Up', url: '/Sign-Up'}
 ]
 
 const userMenuList = [
@@ -15,6 +16,7 @@ const userMenuList = [
   { title: 'Word', url:'/Word'},
   { title: 'Practice', url: '/Practice'},
   { title: 'Test', url:'/Test'},
+  { title: 'History', url:'/History'},
 ]
 
 export const NavMenu: FC = () => {
@@ -22,38 +24,42 @@ export const NavMenu: FC = () => {
   const setToken = useSetToken();
   
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+
+  const toggleMenu = useCallback(() => {
+    setIsOpen(prevState => !prevState)
+  }, [])
 
   const handleLogout = useCallback(() => {
     setToken(null);
   }, [setToken]);
 
+  const renderMenuList = (menuList: { title: string, url: string }[]) => (
+    <>
+      {menuList.map((menu, index) => (
+        <li key={index}>
+          <Link to={menu.url}>{menu.title}</Link>
+        </li>
+      ))}
+    </>
+  );
+
   return (
     <Wrapper>
-      <MenuButton onClick={() => setIsOpen(!isOpen)}><FontAwesomeIcon icon={faBars} size='2x'style={{color: 'black'}} />{' '}</MenuButton>
+      <MenuButton onClick={toggleMenu}>
+        <FontAwesomeIcon icon={faBars} size='2x' style={{ color: 'black' }} />
+      </MenuButton>
       <MenuItems isOpen={isOpen}>
-        {!hasSession &&
-          normalMenuList.map((menu, index) => (
-            <li key={index}>
-              <Link to={menu.url}>{menu.title}</Link>
-            </li>
-          ))
-        }
-
-        {hasSession && <>
-          {userMenuList.map((menu, index) => (
-            <li key={index}>
-              <Link to={menu.url}>{menu.title}</Link>
-            </li>
-          ))}
-          {hasSession && (
+        {!hasSession ? renderMenuList(normalMenuList) : (
+          <>
+            {renderMenuList(userMenuList)}
             <button onClick={handleLogout}>sign out</button>
-          )}
-        </>}
+          </>
+        )}
       </MenuItems>
     </Wrapper>
   );
 }
+
 const Wrapper = styled.div`
   position: relative;
 `;

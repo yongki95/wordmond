@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
+import _ from 'lodash';
 
 const GET_RANDOM_WORD = gql`
   query GetRandomWord($level: Int!) {

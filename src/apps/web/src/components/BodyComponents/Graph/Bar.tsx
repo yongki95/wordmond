@@ -1,17 +1,11 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components'
 
-type BarProps = {
-  level: string;
-  value: number;
-  bColor: string;
-}
-
-export const Bar: FC<BarProps> = ({level, value, bColor}) => {
+export const Bar: FC<BarAttributes> = ({ level, value, bColor }) => {
   return <StyledBar level={level} value={value} bColor={bColor} />;
 }
 
-const StyledBar = styled.div<BarProps>`
+const StyledBar = styled.div<BarAttributes>`
   width: 80px;
   height: ${props => `${props.value}%`};
   position: relative;

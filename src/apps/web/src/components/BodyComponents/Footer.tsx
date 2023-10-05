@@ -1,8 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLocationDot, faMobile, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faSquareFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import styled from 'styled-components';
 
 
 export const Footer = () => { 
@@ -13,24 +12,41 @@ export const Footer = () => {
           Wordmond
         </Logo>
         <Text>
-          <p>LET'S TALK <FontAwesomeIcon icon={faPaperPlane} size="lg" style={{ color: "black" }} />{' '}</p>
+          <p>LET'S TALK 
+            <FontAwesomeIcon icon={faPaperPlane} size="lg" style={{ color: "black" }} />
+          </p>
         </Text>
       </Left>
       <Right>
         <ul>
-          <p><FontAwesomeIcon icon={faLocationDot} size="lg" style={{ color: "black" }} />{' '} Redmond, WA, 98052</p>
+          <p>
+            <FontAwesomeIcon icon={faLocationDot} size="lg" style={{ color: "black" }} />
+             Redmond, WA, 98052
+          </p>
         </ul>
         <ul>
-          <p><FontAwesomeIcon icon={faMobile} size="lg" style={{ color: "black" }} />{' '} 206-***-****</p>
+          <p>
+            <FontAwesomeIcon icon={faMobile} size="lg" style={{ color: "black" }} />
+            206-***-****
+            </p>
         </ul>
         <ul>
-          <p><FontAwesomeIcon icon={faSquareFacebook} size="lg" style={{ color: "black" }} />{' '} Kim, Yongki</p>
+          <p>
+            <FontAwesomeIcon icon={faSquareFacebook} size="lg" style={{ color: "black" }} />
+            Kim, Yongki
+          </p>
         </ul>
         <ul>
-          <p><FontAwesomeIcon icon={faInstagram} size="lg" style={{ color: "black" }} />{' '} yongkikim95</p>
+          <p>
+            <FontAwesomeIcon icon={faInstagram} size="lg" style={{ color: "black" }} />
+            yongkikim95
+          </p>
         </ul>
         <ul>
-          <p><FontAwesomeIcon icon={faEnvelope} size="lg" style={{ color: "black" }} />{' '} yongki0704</p>
+          <p>
+            <FontAwesomeIcon icon={faEnvelope} size="lg" style={{ color: "black" }} />
+            yongki0704
+          </p>
         </ul>
       </Right>
     </Wrapper>
@@ -82,6 +98,5 @@ const Right = styled.div`
     margin-left: 20px;
     font-size: 12px;
     font-weight: 400;
-  
   }
 `;

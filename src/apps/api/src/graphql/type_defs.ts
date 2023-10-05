@@ -16,10 +16,10 @@ export const typeDefs = gql`
 		password: String!
 		email: String!
 		authroizedID: String!
-		histories: [History!]!
+		testHistories: [TestHistory!]!
 	}
 
-	type History {
+	type TestHistory {
 		_id: ID!
 		user: User!
 		date: String!
@@ -95,8 +95,9 @@ export const typeDefs = gql`
 		_id: ID
 	}
 
-	type GetUserIDResult {
+	type GetUserIDByTokenResult {
 		success: Boolean!
+		error: String
 		_id: ID
 	}
 
@@ -144,7 +145,34 @@ export const typeDefs = gql`
 		choices: [String!]!
 		userAnswer: String!
 	}
+
+	input TestHistoryInput {
+		user: ID!
+		date: String!
+		score: Int!
+		level: Int!
+		language: String!
+		questions: [QuestionInput!]!
+	}
 	
+	type GetUserAccountByTokenResult {
+		success: Boolean!
+		error: String
+		userName: String!
+	}
+
+	type SaveTestHistoryResult {
+		success: Boolean!
+		error: String
+		_id: ID
+	}
+
+	type GetTestHistoriesByUserResult {
+		success: Boolean!
+		error: String
+		data: [TestHistory!]
+	}
+
 	type SaveQuestionResult {
 		success: Boolean!
 		error: String
@@ -199,9 +227,17 @@ export const typeDefs = gql`
 			level: Int!
 		): GetEveryWordsByLevelResult!
 
-		getUserId(
-			userName: String!
-		): GetUserIDResult!
+		getUserIdByToken(
+			userToken: String!
+		): GetUserIDByTokenResult!
+
+		getUserAccountByToken(
+			userToken: String!
+		): GetUserAccountByTokenResult!
+
+		getTestHistoriesByUser(
+			userId: String!
+		): GetTestHistoriesByUserResult!
 	}
 
 	type Mutation {
@@ -229,5 +265,9 @@ export const typeDefs = gql`
 		saveQuestion(
 			data: QuestionInput!
 		): SaveQuestionResult!
+
+		saveTestHistory(
+			data: TestHistoryInput!
+		): SaveTestHistoryResult!
 	}
 `;

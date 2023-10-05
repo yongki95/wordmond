@@ -1,6 +1,4 @@
-import React from 'react';
 import './App.css';
-import styled from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { MainBody } from './components/MainBody';

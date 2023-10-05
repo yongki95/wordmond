@@ -1,15 +1,17 @@
 import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { LOCAL_STORAGE_KEY_TOKEN } from './constants';
+import { LOCAL_STORAGE_KEY_TOKEN, LOCAL_STORAGE_KEY_USER_ID } from './constants';
 import { useNavigate } from 'react-router-dom';
 
 export type Auth = {
   token: string | null | undefined;
+  userId: string | null | undefined;
   setToken: (token: string | null) => void;
   hasSession?: boolean;
 };
 
 export const AuthContext = createContext<Auth>({
   token: undefined,
+  userId: undefined,
   setToken: () => {},
   hasSession: undefined,
 });
@@ -50,22 +52,30 @@ export const useSetToken = () => {
   return update;
 };
 
+
+
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<Auth['token']>(undefined);
-  
+  const [userId, setUserId] = useState<string | null | undefined>(undefined);
+
   useEffect(() => {
     setToken(localStorage.getItem(LOCAL_STORAGE_KEY_TOKEN));
   }, [setToken]);
+
+  useEffect(() => {
+    setUserId(localStorage.getItem(LOCAL_STORAGE_KEY_USER_ID));
+  }, [setUserId]);
 
   const hasSession = token === undefined ? undefined : !!token;
 
   const value: Auth = useMemo(
     () => ({
       token,
+      userId,
       setToken,
       hasSession,
     }),
-    [token, setToken]
+    [token, setToken, userId]
   );
 
   return (

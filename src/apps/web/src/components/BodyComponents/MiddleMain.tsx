@@ -1,11 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt, faPlus, faPenToSquare, faComment, faCommentDots, faChalkboardUser, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { faCommentAlt, faComments } from '@fortawesome/free-regular-svg-icons';
+import { faChalkboardUser, faMagnifyingGlass, faComments } from '@fortawesome/free-solid-svg-icons';
 
-
-export const MiddleMain = () => {
+export const MiddleMain = () => {  
   return (
     <Wrapper>
       <Session>

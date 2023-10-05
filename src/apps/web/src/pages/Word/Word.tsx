@@ -1,8 +1,8 @@
-import React, { FC, useMemo, useState } from 'react';
-import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { FC, useMemo, useState } from 'react';
+import styled from 'styled-components';
 
 import { WordTop } from './TopWord';
 
@@ -94,7 +94,9 @@ export const Word = () => {
         <div>
           <h2>Choose Level</h2>
           {levels.map((level, index) => (
-            <Button onClick={()=> {setLevel(level.numLevel); setIndex(0); setPage(0)}} key={index}>{level.level}</Button>
+            <Button onClick={()=> {setLevel(level.numLevel); setIndex(0); setPage(0)}} 
+            key={index}>{level.level}
+            </Button>
           ))}
         </div>
       </LevelWrapper>
@@ -103,8 +105,8 @@ export const Word = () => {
       <h3>Word List</h3>
       <PagenateWordsByLevel page={page} level={level}/>
       <ButtonWrapper>
-        <FontAwesomeIcon onClick={handlePreviousPage} icon={faAngleDoubleLeft} size="sm" style={{ color: "black" }} />{' '}
-        <FontAwesomeIcon onClick={handleNextPage} icon={faAngleDoubleRight} size="sm" style={{ color: "black" }} />{' '}
+        <FontAwesomeIcon onClick={handlePreviousPage} icon={faAngleDoubleLeft} size="sm" style={{ color: "black" }} />
+        <FontAwesomeIcon onClick={handleNextPage} icon={faAngleDoubleRight} size="sm" style={{ color: "black" }} />
       </ButtonWrapper>
     </Wrapper>
   );

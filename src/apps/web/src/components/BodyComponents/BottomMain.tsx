@@ -5,6 +5,10 @@ import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 
 export const BottomMain = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  }  
+
   return (
     <Wrapper>
       <Top>
@@ -15,11 +19,14 @@ export const BottomMain = () => {
         <form onSubmit={handleSubmit}>
           <Input type='email' placeholder='Your Email'></Input>
         </form>
-        <Button type='submit'><FontAwesomeIcon icon={faCircleArrowRight} size="5x" style={{ color: 'gray'}} />{' '}</Button>
+        <Button type='submit'>
+          <FontAwesomeIcon icon={faCircleArrowRight} size="5x" style={{ color: 'gray'}} />
+        </Button>
       </Bottom>
     </Wrapper>
   );
 }
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,7 +39,6 @@ const Wrapper = styled.div`
     margin-top: 120px;
     margin-bottom: 120px;
   }
-  
 `;
 
 const Top = styled.div`
@@ -51,8 +57,6 @@ const Top = styled.div`
     margin: 24px;
     font-size: 18px;
   }
-  
-  
 `;
 
 const Bottom = styled.div`
@@ -61,11 +65,6 @@ const Bottom = styled.div`
   align-items: center;
   margin-top: 60px;
 `;
-
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-
-}  
 
 const Input = styled.input`
   padding: 10px 15px;

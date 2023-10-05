@@ -1,0 +1,26 @@
+import { TestHistory, TestHistoryModel } from '../../../models';
+import { Resolver } from '../../type';
+
+const saveTestHistory: Resolver<{
+  data: Pick<TestHistory, 'user' | 'date' | 'score' | 'level' | 'language' | 'questions'>;
+}, {
+  success: boolean;
+  _id?: string;
+}> = async (_: any, { data }) => {
+  try {
+    const hisotry = await TestHistoryModel.create(data);
+    return {
+      success: true,
+      _id: hisotry._id,
+    };
+  } catch (e: any) {
+    return {
+      success: false,
+      error: e.message,
+    };
+  }
+};
+
+export {
+  saveTestHistory,
+}

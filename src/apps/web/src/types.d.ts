@@ -4,3 +4,9 @@ type Word = {
   eng: string;
   kor: string;
 };
+
+type BarAttributes = {
+  level: string;
+  value: number;
+  bColor: string;
+}

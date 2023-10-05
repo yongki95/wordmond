@@ -1,8 +1,6 @@
-import React from 'react';
 import styled from 'styled-components'
 import logo from '../../hero_image/8576.jpg';
 import { Link } from 'react-router-dom';
-
 
 export const HeroSession = () => {
   return (
@@ -14,7 +12,7 @@ export const HeroSession = () => {
             Speak with people <br/> without afraid of Vocabulary.
           </p>          
           <Button> 
-            <Link to='/Login'>Get Started</Link>
+            <Link to='/sign-up'>Get Started</Link>
           </Button>
         </TextWrapper>
       </HeroText>

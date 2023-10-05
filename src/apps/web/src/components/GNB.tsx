@@ -1,4 +1,3 @@
-import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { NavMenu } from './NavMenu';

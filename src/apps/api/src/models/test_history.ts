@@ -3,7 +3,7 @@ import { Ref, getModelForClass, prop } from '@typegoose/typegoose';
 import { Question } from './Question';
 import { User } from './User';
 
-export class History extends Document {
+export class TestHistory extends Document {
   @prop({ required: true, ref: () => User })
   public user!: Ref<User>;
 
@@ -23,4 +23,4 @@ export class History extends Document {
   public questions!: Ref<Question>[];
 }
 
-export const HistoryModel = getModelForClass(History);
+export const TestHistoryModel = getModelForClass(TestHistory);
