@@ -1,15 +1,15 @@
-import React, { FC } from "react";
-import { styled } from "styled-components";
+import { FC } from 'react';
+import styled from 'styled-components';
 
-type Props = {
-  width: number;
-  height: number;
-}
+export const FlipCard: FC<FlipCardAttributes> = (dimensionsAttributes) => {
+  const dimensions = {
+    width: `${dimensionsAttributes.width}`,
+    height: `${dimensionsAttributes.height}`,
+  };
 
-export const FlipCard: FC<Props> = (Props) => {
   return (
-    <Wrapper style={{ width:`${Props.width}px`, height:`${Props.height}px` }}>
-      <FlipCardWrapper style={{ width:`${Props.width}px`, height:`${Props.height}px` }}>
+    <Wrapper style={dimensions}>
+      <FlipCardWrapper style={dimensions}>
         <InnerCard>
           <Front>
             Abroad
@@ -22,8 +22,8 @@ export const FlipCard: FC<Props> = (Props) => {
         </InnerCard>
       </FlipCardWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.div`
   display:flex;
@@ -65,7 +65,6 @@ const Front = styled.div`
   color: white;
   font-size: 54px;
   border-radius: 5px;
-
 `;
 
 const Back = styled.div`
@@ -83,5 +82,4 @@ const Back = styled.div`
   color: white;
   transform: rotateY(180deg);
   border-radius: 5px;
-
-`
+`;

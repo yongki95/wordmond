@@ -1,13 +1,7 @@
-import React, { FC, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import styled from 'styled-components';
 
 import { Bar } from './Bar';
-
-type BarProps = {
-  level: string;
-  value: number;
-  bColor: string;
-}
 
 export const BarChart: FC = () => {
   const Bars = useMemo(() => {
@@ -18,25 +12,33 @@ export const BarChart: FC = () => {
       { level: 'B2', value: 55, bColor: '#7eb0d5' },
       { level: 'C1', value: 80, bColor: '#8bd3c7' },
       { level: 'C2', value: 100, bColor: '#9cd4d9' },
-    ]
-  }, [])
+    ];
+  }, []);
+
+  const proficiencyLevel = useMemo(() => {
+    return [
+      {tag: 'Beginner'},
+      {tag: 'Intermediate'},
+      {tag: 'Advanced'},
+    ];
+  }, []);
 
   return (
     <Wrapper>
       <p>Level Chart</p>
       <BarChartContainer>
         {Bars.map(barData => (
-          <Bar key={barData.level} level={barData.level} value={barData.value} bColor={barData.bColor}/>
+          <Bar key={barData.level} {...barData}/>
         ))}
       </BarChartContainer>
       <Label>
-        <p>Beginner</p>
-        <p>Intermediate</p>
-        <p>Advanced</p>
+        {proficiencyLevel.map(data => (
+          <p key={data.tag}>{data.tag}</p>
+        ))}
       </Label>
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   margin-top: 40px;

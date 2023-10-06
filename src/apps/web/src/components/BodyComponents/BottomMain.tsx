@@ -1,13 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { FC } from 'react';
+import styled from 'styled-components';
 
-
-export const BottomMain = () => {
+export const BottomMain: FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  }  
+  };
 
   return (
     <Wrapper>
@@ -17,16 +16,19 @@ export const BottomMain = () => {
       </Top>
       <Bottom>
         <form onSubmit={handleSubmit}>
-          <Input type='email' placeholder='Your Email'></Input>
+          <Input type='email' placeholder='Your Email'/>
         </form>
         <Button type='submit'>
-          <FontAwesomeIcon icon={faCircleArrowRight} size="5x" style={{ color: 'gray'}} />
+          <FontAwesomeIcon 
+            icon={faCircleArrowRight} 
+            size="5x" 
+            style={{ color: 'gray'}}
+          />
         </Button>
       </Bottom>
     </Wrapper>
   );
-}
-
+};
 
 const Wrapper = styled.div`
   display: flex;

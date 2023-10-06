@@ -1,15 +1,16 @@
+import { FC } from 'react';
 import styled from 'styled-components';
 
-import { NavMenu } from './NavMenu';
+import { NavMenu } from './NavMenu/NavMenu';
 
-export const GNB = () => {
+export const GNB: FC = () => {
   return (
     <Wrapper>
       <Logo>Wordmond</Logo>
       <NavMenu/>
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   display: flex;

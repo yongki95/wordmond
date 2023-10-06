@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
-import { FC, useCallback, useMemo } from "react";
-import styled from "styled-components";
+import { FC, useCallback} from 'react';
+import styled from 'styled-components';
 
-import { FlipCard } from "./FlipCard";
+import { FlipCard } from './FlipCard';
 
-export const TopMain = () => {
+export const TopMain: FC = () => {
   return (
     <Wrapper>
       <TopTitle>
@@ -17,8 +17,45 @@ export const TopMain = () => {
         <RightMoveButton/>
       </Top>
     </Wrapper>
-  )
-}
+  );
+};
+
+const LeftMoveButton: FC = () => {
+  const handleDelete = useCallback(() => {
+    alert('Move to Left Card');
+  }, []);
+  
+  return (
+    <div>
+      <Button typeof = 'button' onClick={handleDelete}>
+        <FontAwesomeIcon 
+          icon={faAnglesLeft} 
+          size='3x' 
+          style={{ color: 'gray' }} 
+        />
+      </Button>
+    </div>
+  );
+};
+
+const RightMoveButton: FC = () => {
+  const handleDelete = useCallback(() => {
+    alert('Move to Right Card');
+  }, []);
+  
+  return (
+    <div>
+      <Button typeof = 'button' onClick={handleDelete}>
+        <FontAwesomeIcon 
+          icon={faAnglesRight} 
+          size='3x' 
+          style={{ color: 'gray' }} 
+        />
+      </Button>
+    </div>
+  );
+};
+
 
 const Wrapper = styled.div`
   display:flex;
@@ -42,36 +79,6 @@ const TopTitle = styled.div`
   font-weight: bold;
   font-size: 24px;  
 `;
-
-
-const LeftMoveButton: FC = () => {
-  const handleDelete = useCallback(() => {
-    alert('Move to Left Card');
-  }, []);
-  
-  return (
-    <div>
-      <Button typeof = "button" onClick={handleDelete}>
-        <FontAwesomeIcon icon={faAnglesLeft} size="3x" style={{ color: "gray" }} />{' '}
-      </Button>
-    </div>
-  )
-};
-
-const RightMoveButton: FC = () => {
-  const handleDelete = useCallback(() => {
-    alert('Move to Right Card');
-  }, []);
-  
-  return (
-    <div>
-      <Button typeof = "button" onClick={handleDelete}>
-        <FontAwesomeIcon icon={faAnglesRight} size="3x" style={{ color: "gray" }} />{' '}
-      </Button>
-    </div>
-  )
-};
-
 
 const Button = styled.div`
     margin: 40px;

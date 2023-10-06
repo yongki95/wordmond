@@ -1,17 +1,18 @@
-import styled from 'styled-components';
+import { FC } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import styled from 'styled-components';
 
-import { Home } from '../pages/Main/Main';
 import { About } from '../pages/About/About';
-import { Word } from '../pages/Word/Word';
-import { Practice } from '../pages/Practice/Practice';
-import { Test } from '../pages/Test/Test';
-import { SignUp } from '../pages/SignUp/SignUp';
+import { TestHistory } from '../pages/History/TestHistory';
 import { Login } from '../pages/Login/Login';
-import { History } from '../pages/History/History'
+import { Home } from '../pages/Main/Main';
+import { Practice } from '../pages/Practice/Practice';
+import { SignUp } from '../pages/SignUp/SignUp';
+import { Test } from '../pages/Test/Test';
+import { Word } from '../pages/Word/Word';
 
-export const MainBody = () => {
+export const MainBody: FC = () => {
   let location = useLocation();
 
   const routes = [
@@ -22,23 +23,31 @@ export const MainBody = () => {
     { path: '/about', component: <About /> },
     { path: '/sign-up', component: <SignUp /> },
     { path: '/login', component: <Login /> },
-    { path: '/History', component: <History /> }
+    { path: '/History', component: <TestHistory /> },
   ];
 
   return (
     <Wrapper>
       <TransitionGroup>
-        <CSSTransition key={location.key} classNames='slide' timeout={300}>
+        <CSSTransition 
+          key={location.key} 
+          classNames='slide' 
+          timeout={300}
+        >
           <Routes>
             {routes.map((route, index) => (
-              <Route key={index} path={route.path} element={route.component} />
+              <Route 
+                key={index} 
+                path={route.path} 
+                element={route.component} 
+              />
             ))}
           </Routes>
         </CSSTransition>
       </TransitionGroup>
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   display: flex;

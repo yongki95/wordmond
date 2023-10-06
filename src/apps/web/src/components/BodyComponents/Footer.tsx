@@ -1,57 +1,40 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLocationDot, faMobile, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faSquareFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FC } from 'react';
 import styled from 'styled-components';
 
+export const Footer: FC = () => { 
+  const contactItems = [
+    { icon: faLocationDot, text: 'Redmond, WA, 98052' },
+    { icon: faMobile, text: '206-***-****' },
+    { icon: faSquareFacebook, text: 'Kim, Yongki' },
+    { icon: faInstagram, text: 'yongkikim95' },
+    { icon: faEnvelope, text: 'yongki0704' },
+  ];
 
-export const Footer = () => { 
   return (
     <Wrapper>
       <Left>
-        <Logo>
-          Wordmond
-        </Logo>
+        <Logo>Wordmond</Logo>
         <Text>
-          <p>LET'S TALK 
-            <FontAwesomeIcon icon={faPaperPlane} size="lg" style={{ color: "black" }} />
+          <p>
+            LET'S TALK 
+            <StyledIcon icon={faPaperPlane} size='lg' />
           </p>
         </Text>
       </Left>
       <Right>
-        <ul>
-          <p>
-            <FontAwesomeIcon icon={faLocationDot} size="lg" style={{ color: "black" }} />
-             Redmond, WA, 98052
-          </p>
-        </ul>
-        <ul>
-          <p>
-            <FontAwesomeIcon icon={faMobile} size="lg" style={{ color: "black" }} />
-            206-***-****
-            </p>
-        </ul>
-        <ul>
-          <p>
-            <FontAwesomeIcon icon={faSquareFacebook} size="lg" style={{ color: "black" }} />
-            Kim, Yongki
-          </p>
-        </ul>
-        <ul>
-          <p>
-            <FontAwesomeIcon icon={faInstagram} size="lg" style={{ color: "black" }} />
-            yongkikim95
-          </p>
-        </ul>
-        <ul>
-          <p>
-            <FontAwesomeIcon icon={faEnvelope} size="lg" style={{ color: "black" }} />
-            yongki0704
-          </p>
-        </ul>
+        {contactItems.map((item, index) => (
+          <ContactItem key={index}>
+            <StyledIcon icon={item.icon} size='lg' />
+            {item.text}
+          </ContactItem>
+        ))}
       </Right>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,8 +47,21 @@ const Wrapper = styled.div`
   }
 `;
 
-const Left = styled.div`
+const StyledIcon = styled(FontAwesomeIcon)`
+  color: black;
+`;
 
+const ContactItem = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  p {
+    margin: 0;
+  }
+`;
+
+const Left = styled.div`
 `;
 
 const Logo = styled.div`
@@ -87,7 +83,6 @@ const Text = styled.div`
     margin-top: 120px;
     font-size: 36px;
     font-weight: 400;
-  
   }
 `;
 

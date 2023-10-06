@@ -18,9 +18,11 @@ export const SignUp: FC = () => {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [signupSuccess, setSignupSuccess] = useState<string>('');
-  const [createUser] = useMutation<{createUser: {success: boolean; error?: string; _id: string;}}>(SIGN_UP)
-  const navigate = useNavigate();
-
+  const navigate = useNavigate();  
+  const [createUser] = useMutation<{
+    createUser: {success: boolean;
+    error?: string;
+    _id: string;}}>(SIGN_UP)
 
   const validateUserName = (userName: string) => {
     const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -34,7 +36,7 @@ export const SignUp: FC = () => {
     }
 
     return true;
-  }
+  };
 
   const validatePassword = (password: string) => {
     const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -48,12 +50,12 @@ export const SignUp: FC = () => {
     }
 
     return true;
-  }
+  };
 
   const validateEmail = (email: string) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
-  }
+  };
 
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,8 +63,8 @@ export const SignUp: FC = () => {
     const user = {
       userName,
       password,
-      email
-    }
+      email,
+    };
     console.log('add...', JSON.stringify(user));
 
     const response = await createUser({
@@ -78,22 +80,36 @@ export const SignUp: FC = () => {
       setSignupSuccess('Success');
     } else {
       setSignupSuccess('Fail');
-    }
+    };
   }, [userName, password, email]);
 
 
   return (
     <Wrapper>
       <form onSubmit={handleSubmit}>
-        <input value={userName} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+        <input 
+          value={userName} 
+          onChange={(e) => setUsername(e.target.value)} 
+          placeholder="Username" 
+        />
+        <input 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          placeholder="Password" 
+        />
+        <input 
+          type="email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          placeholder="Email" 
+        />
         <button type="submit">Sign Up</button>
       </form>
       {signupSuccess === 'Fail' && <h2>sign up failed</h2>}
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.div`
-`
+`;

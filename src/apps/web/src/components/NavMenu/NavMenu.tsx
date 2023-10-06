@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FC, useState, useCallback} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,8 +8,8 @@ import { useAuth, useSetToken } from '../../auth';
 
 const normalMenuList = [
   { title: 'Login', url:'/Login'},
-  { title: 'Sign Up', url: '/Sign-Up'}
-]
+  { title: 'Sign Up', url: '/Sign-Up'},
+];
 
 const userMenuList = [
   { title: 'Home', url:'/'},
@@ -17,7 +17,7 @@ const userMenuList = [
   { title: 'Practice', url: '/Practice'},
   { title: 'Test', url:'/Test'},
   { title: 'History', url:'/History'},
-]
+];
 
 export const NavMenu: FC = () => {
   const { hasSession } = useAuth();
@@ -46,7 +46,11 @@ export const NavMenu: FC = () => {
   return (
     <Wrapper>
       <MenuButton onClick={toggleMenu}>
-        <FontAwesomeIcon icon={faBars} size='2x' style={{ color: 'black' }} />
+        <FontAwesomeIcon 
+          icon={faBars} 
+          size='2x' 
+          style={{ color: 'black' }} 
+        />
       </MenuButton>
       <MenuItems isOpen={isOpen}>
         {!hasSession ? renderMenuList(normalMenuList) : (

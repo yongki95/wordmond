@@ -1,15 +1,20 @@
-import styled from 'styled-components'
-import logo from '../../hero_image/8576.jpg';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components'
 
-export const HeroSession = () => {
+import logo from '../../hero_image/8576.jpg';
+
+export const HeroSession: FC = () => {
   return (
     <Wrapper>
       <HeroText>
         <TextWrapper>
           <p>Learn <br/> English Word</p>
-          <p>Memorize Words from Oxford 3000  <br/> and Oxford 5000 to improve your  <br/> English Vocabulary.
-            Speak with people <br/> without afraid of Vocabulary.
+          <p>
+            Memorize Words from Oxford 3000  
+            <br/> and Oxford 5000 to improve your  
+            <br/> English Vocabulary. Speak with people 
+            <br/> without afraid of Vocabulary.
           </p>          
           <Button> 
             <Link to='/sign-up'>Get Started</Link>
@@ -17,13 +22,13 @@ export const HeroSession = () => {
         </TextWrapper>
       </HeroText>
       <HeroImage>
-        <img src={logo} alt="Logo" />
-        <a href="https://www.freepik.com/free-vector/schoolboy-standing-books-raising-hand-speaking-pupil-reading-home-task-report-flat-vector-illustration-school-education-knowledge_10173517.htm#query=education&position=5&from_view=search&track=sph"></a> 
-        <p style={{display: 'none'}}>Image by pch.vector on Freepik</p>
+        <img src={logo} alt='Logo' />
+        <a href='https://www.freepik.com/free-vector/schoolboy-standing-books-raising-hand-speaking-pupil-reading-home-task-report-flat-vector-illustration-school-education-knowledge_10173517.htm#query=education&position=5&from_view=search&track=sph'></a> 
+        <p>Image by pch.vector on Freepik</p>
       </HeroImage>
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -38,7 +43,6 @@ const Wrapper = styled.div`
     padding: 60px 0;
     align-item: center;
   }
-
 `;
 
 const HeroText = styled.div`
@@ -69,7 +73,7 @@ const TextWrapper = styled.div`
 const HeroImage = styled.div`
   display: flex;
   flex-direction: column;  
-
+  align-items: center;
   & img {
     width: 25em;
     height: auto;
@@ -86,10 +90,16 @@ const HeroImage = styled.div`
     object-fit: contain;
   }
 
+  p {
+    margin: 0;
+    color: gray;
+    position: absolute;
+    top: 380px;
+  }
+
   @media (max-width: 1200px) {
     display: none;
   }
-
 `;
 
 const Button = styled.button`
@@ -122,5 +132,5 @@ const Button = styled.button`
   &:focus {
     outline: none;
   }
-`
+`;
 

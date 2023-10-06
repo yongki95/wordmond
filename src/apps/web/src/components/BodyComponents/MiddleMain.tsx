@@ -1,27 +1,50 @@
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChalkboardUser, faMagnifyingGlass, faComments } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FC } from 'react';
+import styled from 'styled-components';
 
-export const MiddleMain = () => {  
+export const MiddleMain: FC = () => {  
   return (
     <Wrapper>
       <Session>
-        <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" style={{ color: "black" }} />{' '}
-        <p><b>Test your Vocabulary</b>  Knowledge <br/> and  Choose your word level to study. Here goes more explanations.</p>
+        <FontAwesomeIcon 
+          icon={faMagnifyingGlass} 
+          size='2x' 
+          style={{ color: 'black' }} 
+        />
+        <p>
+          <b>Test your Vocabulary</b>  Knowledge 
+          <br/> and  Choose your word level to study. 
+          Here goes more explanations.
+        </p>
       </Session>
       <Session>
-        <FontAwesomeIcon icon={faChalkboardUser} size="2x" style={{ color: "black" }} />{' '}
-        <p><b>Memorize Words</b> from selected level. <br/> Repeat and Repeat this steps until you can use those freely. <br/> </p>
-
+        <FontAwesomeIcon 
+          icon={faChalkboardUser} 
+          size='2x' 
+          style={{ color: 'black' }} 
+        />
+        <p>
+          <b>Memorize Words</b> from selected level. 
+          <br/> Repeat and Repeat this steps until 
+          you can use those freely. <br/> 
+        </p>
       </Session>
       <Session>
-        <FontAwesomeIcon icon={faComments} size="2x" style={{ color: "black" }} />{' '}
-        <p><b>Go Outside,</b> Join Community that you can <br/> practice your vocab. Talk with your  <br/> friend and utilize the words</p>
-
+        <FontAwesomeIcon 
+          icon={faComments} 
+          size='2x' 
+          style={{ color: 'black' }} 
+        />
+        <p>
+          <b>Go Outside,</b> Join Community that you can 
+          <br/> practice your vocab. Talk with your  <br/> 
+          friend and utilize the words
+        </p>
       </Session>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,7 +54,6 @@ const Wrapper = styled.div`
   @media (max-width: 768px) {
     margin-top: 12px;
   }
-  
   `;
 
 const Session = styled.div`
@@ -58,6 +80,5 @@ const Session = styled.div`
       margin-top: 12px;
     }
   }
-
 `;
 

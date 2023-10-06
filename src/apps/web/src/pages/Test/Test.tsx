@@ -1,13 +1,12 @@
-import React, { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 import { CreateTest } from './CreateTest';
-import { gql, useMutation } from '@apollo/client';
 
 
-export const Test = () => {
+export const Test: FC = () => {
   const [level, setLevel] = useState(0);
-  const [type, setType] = useState('');
+  const [type, setType] = useState<string>('');
 
   const levels = useMemo(() => {
     return [ 
@@ -24,7 +23,7 @@ export const Test = () => {
     return [
       {type: 'eng'},
       {type: 'kor'},
-    ]
+    ];
   }, []);
 
   return(
@@ -33,21 +32,30 @@ export const Test = () => {
         <div>
           <h2>Choose Level</h2>
           {levels.map((level, index) => (
-            <Button onClick={()=> {setLevel(level.numLevel)}} key={index}>{level.level}</Button>
+            <Button 
+              onClick={()=> {setLevel(level.numLevel)}} 
+              key={index}
+              >
+                {level.level}
+            </Button>
           ))}
         </div>
         <div>
           <h2>Choose Type</h2>
           {testTypes.map((type, index) => (
-            <Button onClick={()=> {setType(type.type)}} key={index}>{type.type}</Button> 
+            <Button 
+              onClick={()=> {setType(type.type)}} 
+              key={index}
+              >
+                {type.type}
+            </Button> 
           ))}
         </div>
       </LevelWrapper>
       {level !== 0 && type !== "" && <CreateTest level={level} type={type} />}
-
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.div`
 `;

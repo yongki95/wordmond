@@ -1,8 +1,6 @@
-import react, { useCallback, useEffect, useState } from 'react';
-import { ApolloLink, useMutation } from '@apollo/client';
-import { gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
+import { FC, useCallback, useState } from 'react';
 import { styled } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 
 import { useAuth, useSetToken } from '../../auth';
 
@@ -11,25 +9,24 @@ const LOG_IN = gql`
     loginUser(data: $data) {
       success
       error
-      authorizedID
+      token
     }
   }
 `;
 
-export const Login = () => {
+export const Login: FC = () => {
   const [login] = useMutation<{
     loginUser: {
       success: boolean;
       error?: string;
-      authorizedID?: string;
+      token?: string;
     }
   }>(LOG_IN);
-  const navigate = useNavigate();
   const setToken = useSetToken();
   const { hasSession } = useAuth(false);
 
-  const [userName, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setemail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,20 +34,20 @@ export const Login = () => {
     const { data } = await login({
       variables: {
         data: {
-          userName, // TODO: userName -> email
+          email, 
           password,
         },
       },
     });
 
     if (data?.loginUser.success) {
-      const token = data.loginUser.authorizedID!; // authorizedID -> token 
+      const token = data.loginUser.token!; 
 
       setToken(token);
     } else {
-      alert("Authentication failed")
+      alert('Authentication failed')
     }
-  }, [setToken, userName, password]);
+  }, [setToken, email, password]);
 
   if (hasSession === undefined) {
     return <>Loading...</>;
@@ -59,18 +56,18 @@ export const Login = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type="text"
-        value={userName}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username" 
+        type='text'
+        value={email}
+        onChange={(e) => setemail(e.target.value)}
+        placeholder='email' 
       />
       <input
-        type="password"
+        type='password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
+        placeholder='Password'
       />
-      <button type="submit">Login</button>
+      <button type='submit'>Login</button>
     </form>
   );
 };

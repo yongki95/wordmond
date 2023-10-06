@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Bar: FC<BarAttributes> = ({ level, value, bColor }) => {
   return <StyledBar level={level} value={value} bColor={bColor} />;
-}
+};
 
 const StyledBar = styled.div<BarAttributes>`
   width: 80px;
@@ -13,7 +13,7 @@ const StyledBar = styled.div<BarAttributes>`
   background-color: ${({ bColor }) => bColor};
 
   &::before {
-    content: "${props => props.level}";
+    content: '${props => props.level}';
     position: absolute;
     top: -20px;
     left: 50%;

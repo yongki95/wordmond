@@ -1,6 +1,7 @@
 import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { LOCAL_STORAGE_KEY_TOKEN, LOCAL_STORAGE_KEY_USER_ID } from './constants';
 import { useNavigate } from 'react-router-dom';
+
+import { LOCAL_STORAGE_KEY_TOKEN, LOCAL_STORAGE_KEY_USER_ID } from './constants';
 
 export type Auth = {
   token: string | null | undefined;
@@ -51,8 +52,6 @@ export const useSetToken = () => {
 
   return update;
 };
-
-
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<Auth['token']>(undefined);

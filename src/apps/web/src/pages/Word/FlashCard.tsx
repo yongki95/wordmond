@@ -1,6 +1,6 @@
-import React, { FC, useCallback, useState } from 'react';
+import { gql, useQuery } from '@apollo/client';
+import React from 'react';
 import styled from 'styled-components';
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
 
 const GET_EVERY_WORD_BY_LEVEL = gql`
   query GetEveryWordsByLevel($level: Int!) {
@@ -17,19 +17,18 @@ const GET_EVERY_WORD_BY_LEVEL = gql`
   }
 `;
 
-export const WordFlashchard: React.FC<{ level: number, index: number}> = ({ level, index }) => {
-
+export const WordFlashchard: React.FC<WordFlashCardProps> = ({ level, index }) => {
   const { loading, error, data } = useQuery(GET_EVERY_WORD_BY_LEVEL, {
     variables: { level }
   });
 
   if (loading) {
     return <div></div>;
-  }
+  };
 
   if (error) {
-    return <div style={{display: "none"}}>error...</div>;
-  }
+    return <div style={{display: 'none'}}>error...</div>;
+  };
 
   if (data.words.success) {
     return (
@@ -39,10 +38,10 @@ export const WordFlashchard: React.FC<{ level: number, index: number}> = ({ leve
         <p>Kor: {data.words.data[index].kor}</p>
       </Wrapper>
     );
-  }
-  return <div style={{display: "none"}}>error...</div>;
+  };
+  return <div style={{display: 'none'}}>error...</div>;
 };
 
 const Wrapper = styled.div`
   border: 1px solid black;
-`
+`;

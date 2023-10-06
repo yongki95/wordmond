@@ -1,12 +1,13 @@
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import { HeroSession } from './HeroSession';
-import { MiddleMain } from '../../components/BodyComponents/MiddleMain';
-import { BarChart } from '../../components/BodyComponents/Graph/Graph';
 import { BottomMain } from '../../components/BodyComponents/BottomMain';
 import { Footer } from '../../components/BodyComponents/Footer';
+import { BarChart } from '../../components/BodyComponents/Graph/Graph';
+import { MiddleMain } from '../../components/BodyComponents/MiddleMain';
 
-export const Home = () => {
+export const Home: FC = () => {
   return (
     <Wrapper>
       <HeroSession/>
@@ -15,8 +16,8 @@ export const Home = () => {
       <BottomMain/>
       <Footer/>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.div`
   
