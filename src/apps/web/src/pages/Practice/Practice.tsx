@@ -1,22 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
-import React, { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 import { CreatePractice } from './CreatePractice';
 import { useAuth } from '../../auth';
 
-enum Language {
-  Eng = 'eng',
-  Kor = 'kor',
-};
-
-type Word = {
-  level: number;
-  eng: string;
-  kor: string;
-};
-
-export const Practice = () => {
+export const Practice: FC = () => {
   const [levelId, setLevelId] = useState<null | Word['level']>(null);
   const [language, setLanguage] = useState<null | Language>(null);
 
@@ -33,6 +21,13 @@ export const Practice = () => {
     ];
   }, []);
 
+  const languageTypes = useMemo(() => {
+    return [
+      {Eng: 'eng'},
+      {Kor: 'kor'},
+    ];
+  },[]);
+
   return (
     <Wrapper>
       <LevelWrapper>
@@ -47,21 +42,22 @@ export const Practice = () => {
             </Button>
           ))}
         </div>
-
         <div>
-          <h2>Choose Type</h2>
-          {Object.entries(Language)
-            .map(([key, value]) => (
+          <h2>Choose Language Type</h2>
+          {languageTypes.map((langType, index) => {
+            const [displayName, value] = Object.entries(langType)[0];
+
+            return (
               <Button
-                onClick={()=> setLanguage(value)}
-                key={value}
+                onClick={() => setLanguage(value)}
+                key={index}
               >
-                {key}
-              </Button> 
-            ))}
+                {displayName}
+              </Button>
+            );
+          })}
         </div>
       </LevelWrapper>
-
       {levelId && language && (
         <CreatePractice level={levelId} type={language} />
       )}

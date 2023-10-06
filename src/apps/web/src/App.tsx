@@ -1,6 +1,6 @@
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter} from 'react-router-dom'
 
+import './App.css';
 import { MainBody } from './components/MainBody';
 import { GNB } from './components/GNB';
 import { Layout } from './pages/Layout';
