@@ -1,5 +1,5 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { FC, useCallback, useMemo, useState } from "react";
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { FC, useCallback, useMemo, useState } from 'react';
 
 export const SearchkWord: FC = () => {
   const [message, setMessage] =  useState<string>('');
@@ -79,7 +79,7 @@ export const SearchkWord: FC = () => {
       <textarea value={term} onChange={handleChange} style={{ width: 300, height: 400 }} />
       <br />
       
-      <button type="submit" disabled={!isValid}>검색</button>
+      <button type='submit' disabled={!isValid}>검색</button>
       <br />
       <br />
       <br />

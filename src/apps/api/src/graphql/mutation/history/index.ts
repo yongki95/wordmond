@@ -5,6 +5,7 @@ const saveTestHistory: Resolver<{
   data: Pick<TestHistory, 'user' | 'date' | 'score' | 'level' | 'language' | 'questions'>;
 }, {
   success: boolean;
+  error?: string;
   _id?: string;
 }> = async (_, { data }) => {
   try {

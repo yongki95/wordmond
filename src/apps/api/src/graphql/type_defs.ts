@@ -15,7 +15,14 @@ export const typeDefs = gql`
 		email: String!
 		password: String!
 		token: String
-		testHistories: [TestHistory!]!
+	}
+	
+	type Question {
+		_id: ID!
+		word: String!
+		answer: String
+		choices: [String!]!
+		userAnswer: String!
 	}
 
 	type TestHistory {
@@ -27,15 +34,7 @@ export const typeDefs = gql`
 		language: String!
 		questions: [Question!]!
 	}
-
-	type Question {
-		_id: ID!
-		word: String!
-		answer: String
-		choices: [String!]!
-		userAnswer: String!
-	}
-
+	
 	type PaginateWordResult {
 		success: Boolean!
 		error: String
@@ -133,7 +132,7 @@ export const typeDefs = gql`
 	}
 
 	input LoginInput {
-		eamil: String!
+		email: String!
 		password: String!
 	}
 
@@ -174,13 +173,13 @@ export const typeDefs = gql`
 	type SaveTestQuestionResult {
 		success: Boolean!
 		error: String
-		_id: ID
+		_id: ID!
 	}
 
 	type LoginUserResult {
 		success: Boolean!
 		error: String
-		token: String!
+		token: String
 	}
 	
 	type Query {

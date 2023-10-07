@@ -4,7 +4,7 @@ import { User, UserModel } from '../../../models';
 import { Resolver } from '../../type';
 
 const createUser: Resolver<{
-  data: Pick<User, 'eamil' | 'password'>;
+  data: Pick<User, 'email' | 'password'>;
 }, {
   success: boolean;
   _id?: string;
@@ -25,13 +25,14 @@ const createUser: Resolver<{
 };
 
 const loginUser: Resolver<{
-  data: Pick<User, 'eamil' | 'password'>;
+  data: Pick<User, 'email' | 'password'>;
 }, {
   success: boolean;
-  _id?: string;
+  error?: string;
+  token?: string;
 }> = async (_, { data }) => {
   try {
-    const user = await UserModel.findOne({ eamil: data.eamil });
+    const user = await UserModel.findOne({ email: data.email });
     
     if (user && user.password === data.password) {
       user.token = uuidv4();
@@ -44,7 +45,7 @@ const loginUser: Resolver<{
     } else {
       return {
         success: false,
-        error: 'Invalid eamil or password',
+        error: 'Invalid email or password',
       };
     }
   } catch (e: any) {

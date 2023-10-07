@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { MenuHeader } from "./MenuHeader";
-import { MenuMain } from "./MenuMain";
-import { UserMenuMain } from "./UserMenuMain";
+import { MenuHeader } from './MenuHeader';
+import { MenuMain } from './MenuMain';
+import { UserMenuMain } from './UserMenuMain';
 
 export const MenuBar = () => {
   return (

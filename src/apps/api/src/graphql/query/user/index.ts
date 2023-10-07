@@ -33,7 +33,7 @@ const getUserAccountByToken: Resolver<{
     const userData = await UserModel.findOne({ token: userToken });
     return {
       success: true,
-      userName: userData?.eamil,
+      userName: userData?.email,
     };
   } catch (e: any) {
     return {

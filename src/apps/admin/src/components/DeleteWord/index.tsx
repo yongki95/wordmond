@@ -1,5 +1,5 @@
-import { gql, useMutation } from "@apollo/client";
-import { FC, useCallback, useMemo, useState } from "react";
+import { gql, useMutation } from '@apollo/client';
+import { FC, useCallback, useMemo, useState } from 'react';
 
 export const DeleteWord: FC = () => {
   const [message, setMessage] =  useState<string>('');
@@ -64,7 +64,7 @@ export const DeleteWord: FC = () => {
       <textarea value={_id} onChange={handleChange} style={{ width: 300, height: 400 }} />
       <br />
       
-      <button type="submit" disabled={!isValid}>삭제</button>
+      <button type='submit' disabled={!isValid}>삭제</button>
       <br />
       <br />
       <br />

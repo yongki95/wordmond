@@ -1,7 +1,5 @@
-import { faPenToSquare, faTrash, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FC, useCallback } from "react";
-import { styled } from "styled-components";
+import { useCallback } from 'react';
+import { styled } from 'styled-components';
 
 export const EditProfile = () => {
   return (
@@ -20,48 +18,48 @@ export const EditProfile = () => {
           <div>
             <div>
               <div>
-                <label htmlFor="fristName">First Name</label>
-                <input type="text" id="firstName" name="firstName" placeholder="Courage"></input>
+                <label htmlFor='fristName'>First Name</label>
+                <input type='text' id='firstName' name='firstName' placeholder='Courage'></input>
               </div>
               <div>
-                <label htmlFor="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Kim"></input>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div>
-              <div>
-                <label htmlFor="nickName">Nick Name</label>
-                <input type="text" id="nickName" name="nickName" placeholder="Courage"></input>
-              </div>
-              <div>
-                <label htmlFor="eamil">Email</label>
-                <input type="email" id="email" name="email" placeholder="blahblah@eamil.email"></input>
+                <label htmlFor='lastName'>Last Name</label>
+                <input type='text' id='lastName' name='lastName' placeholder='Kim'></input>
               </div>
             </div>
           </div>
           <div>
             <div>
               <div>
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="**********"></input>
+                <label htmlFor='nickName'>Nick Name</label>
+                <input type='text' id='nickName' name='nickName' placeholder='Courage'></input>
               </div>
               <div>
-                <label htmlFor="confirmP">Confirm Password</label>
-                <input type="password" id="confirmP" name="confirmP" placeholder="***********"></input>
+                <label htmlFor='eamil'>Email</label>
+                <input type='email' id='email' name='email' placeholder='blahblah@eamil.email'></input>
               </div>
             </div>
           </div>
           <div>
             <div>
               <div>
-                <label htmlFor="somethingDiff">Something Diff</label>
-                <input type="text" id="somethingDiff" name="somethingDiff" placeholder="somethingDiff"></input>
+                <label htmlFor='password'>Password</label>
+                <input type='password' id='password' name='password' placeholder='**********'></input>
               </div>
               <div>
-                <label htmlFor="somethingDiff2">Something Diff2</label>
-                <input type="text" id="somethingDiff2" name="somethingDiff2" placeholder="somethingDiff2"></input>
+                <label htmlFor='confirmP'>Confirm Password</label>
+                <input type='password' id='confirmP' name='confirmP' placeholder='***********'></input>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div>
+                <label htmlFor='somethingDiff'>Something Diff</label>
+                <input type='text' id='somethingDiff' name='somethingDiff' placeholder='somethingDiff'></input>
+              </div>
+              <div>
+                <label htmlFor='somethingDiff2'>Something Diff2</label>
+                <input type='text' id='somethingDiff2' name='somethingDiff2' placeholder='somethingDiff2'></input>
               </div>
             </div>
           </div>
@@ -185,7 +183,7 @@ const Update = () => {
   
   return (
     <div>
-      <Button type="button" onClick={handleUpdate}>
+      <Button type='button' onClick={handleUpdate}>
         Update Info
       </Button>
     </div>

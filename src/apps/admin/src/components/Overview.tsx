@@ -1,7 +1,7 @@
-import { faPenToSquare, faTrash, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FC, useCallback } from "react";
-import { styled } from "styled-components";
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCallback } from 'react';
+import { styled } from 'styled-components';
 
 export const Profile = () => {
   return (
@@ -145,8 +145,8 @@ const Delete = () => {
 
   return (
     <div>
-      <Button type="button" onClick={handleDelete}>
-        <FontAwesomeIcon icon={faTrashAlt} size="sm" style={{ color: "white" }} />{' '}
+      <Button type='button' onClick={handleDelete}>
+        <FontAwesomeIcon icon={faTrashAlt} size='sm' style={{ color: 'white' }} />{' '}
       </Button>
     </div>
   )
@@ -160,7 +160,7 @@ const Update = () => {
   
   return (
     <div>
-      <Button type="button" onClick={handleUpdate}>
+      <Button type='button' onClick={handleUpdate}>
         Update Picture
       </Button>
     </div>

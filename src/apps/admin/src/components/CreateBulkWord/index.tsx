@@ -1,6 +1,6 @@
-import { gql, useMutation } from "@apollo/client";
-import Bluebird from "bluebird";
-import { FC, useCallback, useMemo, useState } from "react";
+import { gql, useMutation } from '@apollo/client';
+import Bluebird from 'bluebird';
+import { FC, useCallback, useMemo, useState } from 'react';
 
 
 export const CreateBulkWord: FC = () => {
@@ -13,7 +13,11 @@ export const CreateBulkWord: FC = () => {
     });
   }, []);
 
-  const [createWord] = useMutation<{ createWord: { success: boolean; error?: string; _id?: string}}>(gql`
+  const [createWord] = useMutation<{ 
+    createWord: { 
+      success: boolean; 
+      error?: string; 
+      _id?: string}}>(gql`
     mutation CreateWord($data: WordInput!) {
       createWord(data: $data) {
         success
@@ -78,7 +82,7 @@ export const CreateBulkWord: FC = () => {
       <textarea value={value} onChange={handleChange} style={{ width: 300, height: 400 }} />
       <br />
       
-      <button type="submit" disabled={!isValid}>등록</button>
+      <button type='submit' disabled={!isValid}>등록</button>
       <br />
       <br />
       <br />

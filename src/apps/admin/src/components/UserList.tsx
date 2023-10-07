@@ -1,7 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt, faPlus, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { FC, useCallback, useMemo } from "react";
-import styled from "styled-components";
+import { useMemo } from 'react';
+import styled from 'styled-components';
 
 type User = {
   _id: string;

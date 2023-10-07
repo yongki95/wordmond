@@ -5,6 +5,7 @@ const saveTestQuestion: Resolver<{
   data: Pick<Question, 'word' | 'answer' | 'choices' | 'userAnswer'>;
 }, {
   success: boolean;
+  error?: string;
   _id?: string;
 }> = async (_, { data }) => {
   try {

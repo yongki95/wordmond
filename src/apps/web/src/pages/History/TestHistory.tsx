@@ -1,12 +1,13 @@
 import { gql, useQuery } from '@apollo/client';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useAuth } from '../../auth';
 
-const GET_TEST_HISTORY = gql`
-  query GetUserTestHistory($userId: String!) {
-    history: getUserTestHistory(userId: $userId) {
+const GET_TEST_HISTORIES_BY_USER = gql`
+  query GetTestHistoriesByUser($userId: String!) {
+    history: getTestHistoriesByUser(userId: $userId) {
       success
       error
       data {
@@ -48,20 +49,20 @@ export const TestHistory: FC = () => {
   });
 
   const { 
-    loading: historyLoading,
-    error: historyError, 
-    data: historyData} = useQuery(GET_TEST_HISTORY, {
+    loading: testHistoryLoading,
+    error: testHistoryError, 
+    data: testHistoryData
+  } = useQuery(GET_TEST_HISTORIES_BY_USER, {
     variables: { userId: userId},
     skip: !userId,
   });
 
-
-
-  if (loading || historyLoading) return <div style={{display: 'none'}}>Loading...</div>;
-  if (error || historyError) return <div style={{display: 'none'}}>Error...</div>;
+  if (loading || testHistoryLoading) return <div style={{display: 'none'}}>Loading...</div>;
+  if (error || testHistoryError) return <div style={{display: 'none'}}>Error...</div>;
   
-  if (data?.getUserIdByToken.success || historyData?.getUserTestHistory.success) {
-    const selectedTestData = historyData?.history.data.find(
+  if (data?.getUserIdByToken.success || 
+    testHistoryData?.getUserTestHistory.success) {
+    const selectedTestData = testHistoryData?.history.data.find(
       (test: any) => String(test.date) === selectedDate
     );
 
@@ -72,7 +73,7 @@ export const TestHistory: FC = () => {
       onChange={(e) => setSelectedDate(e.target.value)}
       >
         <option>select date</option>
-        {historyData?.history.data.map((test: any, index: number) => (
+        {testHistoryData?.history.data.map((test: any, index: number) => (
           <option key={index} value={test.date}>
             {new Date(Number(test.date)).toLocaleDateString()}
           </option>
@@ -90,9 +91,9 @@ export const TestHistory: FC = () => {
           <ul>
             {selectedTestData.questions.map((question: any, qIndex: number) => (
               <li key={qIndex}>
-                단어: {question.word} 
-                -- 사용자 응답: {question.userAnswer} 
-                -- 정답: {question.answer}
+                단어: {question.word} -- 
+                사용자 응답: {question.userAnswer} -- 
+                정답: {question.answer}
               </li>
             ))}
           </ul>

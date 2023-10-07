@@ -1,7 +1,5 @@
-import { FontAwesomeIcon, Props } from '@fortawesome/react-fontawesome'
-import { faKiwiBird, faUser, faStar } from '@fortawesome/free-solid-svg-icons';
-import styled from "styled-components";
-import { FC, ReactPropTypes } from 'react';
+import { FC} from 'react';
+import styled from 'styled-components';
 
 type Info = {
     count: number;

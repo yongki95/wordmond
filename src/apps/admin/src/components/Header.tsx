@@ -1,5 +1,5 @@
-import { FC } from "react";
-import styled from "styled-components";
+import { FC } from 'react';
+import styled from 'styled-components';
 export const Header: FC<{headerName: string}> = ({headerName}) => {
   return (
     <Wrapper>

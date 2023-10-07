@@ -1,37 +1,37 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import styled from "styled-components";
 import { faBars, faChartLine, faClock, faComment, faHourglass, faPersonDigging, faSquare, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import styled from 'styled-components';
 
 export const MenuMain = () => {
   return (
     <Wrapper>
         <List>
           <ListItem $active>
-            <FontAwesomeIcon icon={faChartLine} size="1x" style={{ paddingRight: "15px"}}/>
+            <FontAwesomeIcon icon={faChartLine} size='1x' style={{ paddingRight: '15px'}}/>
             Dashboard
           </ListItem>
           <ListItem>
-            <FontAwesomeIcon icon={faUser} size="1x" style={{ color: "#82e9ff", paddingRight: "15px"}}/>
+            <FontAwesomeIcon icon={faUser} size='1x' style={{ color: '#82e9ff', paddingRight: '15px'}}/>
             User
           </ListItem>
           <ListItem>
-            <FontAwesomeIcon icon={faClock} size="1x" style={{ paddingRight: "15px"}}/>
+            <FontAwesomeIcon icon={faClock} size='1x' style={{ paddingRight: '15px'}}/>
             Word
           </ListItem>
           <ListItem>
-            <FontAwesomeIcon icon={faHourglass} size="1x" style={{ color: "#82e9ff", paddingRight: "15px"}}/>
+            <FontAwesomeIcon icon={faHourglass} size='1x' style={{ color: '#82e9ff', paddingRight: '15px'}}/>
             Other Menu
           </ListItem>
           <ListItem>
-            <FontAwesomeIcon icon={faBars} size="1x" style={{ paddingRight: "15px"}}/>
+            <FontAwesomeIcon icon={faBars} size='1x' style={{ paddingRight: '15px'}}/>
             Other Menu2
           </ListItem>
           <ListItem>
-            <FontAwesomeIcon icon={faComment} size="1x" style={{ color: "#82e9ff", paddingRight: "15px"}}/>
+            <FontAwesomeIcon icon={faComment} size='1x' style={{ color: '#82e9ff', paddingRight: '15px'}}/>
             Other Menu3
           </ListItem>
           <ListItem>
-            <FontAwesomeIcon icon={faPersonDigging} size="1x" style={{ paddingRight: "15px"}}/>
+            <FontAwesomeIcon icon={faPersonDigging} size='1x' style={{ paddingRight: '15px'}}/>
             Other Menu4
           </ListItem>
         </List>
