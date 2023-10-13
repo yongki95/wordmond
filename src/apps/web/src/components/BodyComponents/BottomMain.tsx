@@ -16,13 +16,13 @@ export const BottomMain: FC = () => {
       </Top>
       <Bottom>
         <form onSubmit={handleSubmit}>
-          <Input type='email' placeholder='Your Email'/>
+          <Input type='email' placeholder='Your Email' />
         </form>
         <Button type='submit'>
           <FontAwesomeIcon 
             icon={faCircleArrowRight} 
             size="5x" 
-            style={{ color: 'gray'}}
+            style={{color: 'gray'}}
           />
         </Button>
       </Bottom>

@@ -13,5 +13,3 @@ export class Word extends Document {
 };
 
 export const WordModel = getModelForClass(Word);
-
-

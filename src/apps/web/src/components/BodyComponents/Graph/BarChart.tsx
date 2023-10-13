@@ -17,9 +17,9 @@ export const BarChart: FC = () => {
 
   const proficiencyLevel = useMemo(() => {
     return [
-      {tag: 'Beginner'},
-      {tag: 'Intermediate'},
-      {tag: 'Advanced'},
+      { tag: 'Beginner' },
+      { tag: 'Intermediate' },
+      { tag: 'Advanced' },
     ];
   }, []);
 
@@ -27,14 +27,18 @@ export const BarChart: FC = () => {
     <Wrapper>
       <p>Level Chart</p>
       <BarChartContainer>
-        {Bars.map(barData => (
-          <Bar key={barData.level} {...barData}/>
-        ))}
+        {
+          Bars.map(barData => (
+            <Bar key={barData.level} {...barData} />
+          ))
+        }
       </BarChartContainer>
       <Label>
-        {proficiencyLevel.map(data => (
-          <p key={data.tag}>{data.tag}</p>
-        ))}
+        {
+          proficiencyLevel.map(data => (
+            <p key={data.tag}> {data.tag} </p>
+          ))
+        }
       </Label>
     </Wrapper>
   );

@@ -1,110 +1,203 @@
 import { gql, useQuery } from '@apollo/client';
-import { FC, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 
 import { useAuth } from '../../auth';
 
-const GET_TEST_HISTORIES_BY_USER = gql`
-  query GetTestHistoriesByUser($userId: String!) {
-    history: getTestHistoriesByUser(userId: $userId) {
-      success
-      error
-      data {
-        date
-        score
-        level
-        language
-        questions {
-          word
-          answer
-          choices
-          userAnswer
+const GET_USER_TEST_HISTORIES = gql`
+  query MeAndMyTestHistory($page: Int!, $limit: Int!) {
+    me {
+      paginateTestHistory(page: $page, limit: $limit) {
+        success
+        total
+        data {
+          date
+          score
+          level
+          language
+          questions {
+            word
+            answer
+            choices
+            userAnswer
+          }
         }
       }
     }
   }
 `;
 
-const GET_USER_ID = gql`
-  query GetUserIdByToken($userToken: String!) {
-    getUserIdByToken(userToken: $userToken) {
-      success
-      error
-      _id 
-    }
+export const TestHistory: FC = () => {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
+
+  useAuth(true);
+
+  const { 
+    loading, 
+    error, 
+    data,
+  } = useQuery(GET_USER_TEST_HISTORIES, {
+    variables: { 
+      page: currentPage,
+      limit: 10, 
+    },
+  });
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  const selectedTestData = data.me.paginateTestHistory.data.find((test: TestHistory) => test.date === selectedDate);
+  
+  return (
+    <Wrapper>
+      <DateList>
+        {
+          data.me.paginateTestHistory.data.map((test: TestHistory) => (
+            <DateItem key={test.date} onClick={() => setSelectedDate(test.date)}>
+              {new Date(Number(test.date)).toLocaleDateString()}
+            </DateItem>
+          ))
+        }
+      </DateList>
+
+      <Pagination>
+        <PrevButton 
+          onClick={() => setCurrentPage(currentPage - 1)} 
+          disabled={currentPage === 1}
+        >
+          이전 페이지
+        </PrevButton>
+        <NextButton 
+          onClick={() => setCurrentPage(currentPage + 1)} 
+          disabled={data.me.paginateTestHistory.total <= currentPage * limit}
+        >
+          다음 페이지
+        </NextButton>
+      </Pagination>
+
+      {
+        selectedTestData && (
+          <TestDetails>
+            {
+              selectedTestData.questions.map((question: QuestionObjType, qIndex: number) => (
+                <Question key={qIndex}>
+                  <Word>
+                    {question.word} 
+                    {
+                      question.userAnswer === question.answer ? 
+                        <CorrectMark>✅ Correct</CorrectMark> : <IncorrectMark>❌ Wrong</IncorrectMark>
+                    }
+                  </Word>
+                  <Choices>
+                    {
+                      question.choices.map((choice: string, cIndex: number) => (
+                        <Choice 
+                          key={cIndex} 
+                          isUserChoice={choice === question.userAnswer} 
+                          isCorrectAnswer={choice === question.answer}
+                        >
+                          {choice}
+                          {
+                            choice === question.userAnswer && (
+                              <b> Your Answer</b>
+                            )
+                          }
+                          {
+                            choice === question.answer && choice !== question.userAnswer && (
+                              <b>Correct Answer</b>
+                            )
+                          }
+                        </Choice>
+                      ))
+                    }
+                  </Choices>
+                </Question>
+              ))
+            }
+          </TestDetails>
+        )
+      }
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const DateList = styled.div`
+  display: flex;
+  overflow-x: auto;
+  margin-top: 20px;
+`;
+
+const DateItem = styled.button`
+  margin-left: 18px;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ddd;
   }
 `;
 
-export const TestHistory: FC = () => {
-  const [userId, setUserId] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const { token } = useAuth();
+const TestDetails = styled.div`
+  margin-top: 1rem;
+`;
 
-  const { loading, error, data } = useQuery(GET_USER_ID, {
-    variables: { userToken: token },
-    onCompleted: data => {
-      setUserId(data.getUserIdByToken._id);
-    }
-  });
+const Question = styled.div`
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+`;
 
-  const { 
-    loading: testHistoryLoading,
-    error: testHistoryError, 
-    data: testHistoryData
-  } = useQuery(GET_TEST_HISTORIES_BY_USER, {
-    variables: { userId: userId},
-    skip: !userId,
-  });
+const Word = styled.div`
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
 
-  if (loading || testHistoryLoading) return <div style={{display: 'none'}}>Loading...</div>;
-  if (error || testHistoryError) return <div style={{display: 'none'}}>Error...</div>;
-  
-  if (data?.getUserIdByToken.success || 
-    testHistoryData?.getUserTestHistory.success) {
-    const selectedTestData = testHistoryData?.history.data.find(
-      (test: any) => String(test.date) === selectedDate
-    );
+const Choices = styled.ul`
+  margin-top: 1rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+`;
 
-    return (
-      <Wrapper>
-      <select 
-      value={selectedDate || ''} 
-      onChange={(e) => setSelectedDate(e.target.value)}
-      >
-        <option>select date</option>
-        {testHistoryData?.history.data.map((test: any, index: number) => (
-          <option key={index} value={test.date}>
-            {new Date(Number(test.date)).toLocaleDateString()}
-          </option>
-        ))}
-      </select>
+const Choice = styled.li<{ isUserChoice: boolean, isCorrectAnswer: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: ${({isUserChoice}) => isUserChoice ? '#ffd1a1' : 'transparent'};
+  border: ${({isCorrectAnswer}) => isCorrectAnswer ? '1px solid green' : '1px solid transparent'};
+  padding: 0.5rem;
+  border-radius: 4px;
+`;
 
-      {selectedTestData && (
-        <div>
-          <h3>
-            날짜: {new Date(Number(selectedTestData.date)).toLocaleDateString()}
-          </h3>
-          <p>레벨: {selectedTestData.level}</p>
-          <p>테스트 타입: {selectedTestData.language}</p>
-          <p>점수: {selectedTestData.score}/10</p>
-          <ul>
-            {selectedTestData.questions.map((question: any, qIndex: number) => (
-              <li key={qIndex}>
-                단어: {question.word} -- 
-                사용자 응답: {question.userAnswer} -- 
-                정답: {question.answer}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      </Wrapper>
-    );
-  }
+const CorrectMark = styled.span`
+  color: green;
+`;
 
-  return <div style={{display: 'none'}}>Error...</div>;
-}
+const IncorrectMark = styled.span`
+  color: red;
+`;
 
-const Wrapper = styled.div`
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+`;
+
+const PrevButton = styled.button`
+  margin-right: 1rem;
+`;
+
+const NextButton = styled.button`
 `;

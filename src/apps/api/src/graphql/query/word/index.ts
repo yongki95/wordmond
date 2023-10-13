@@ -55,7 +55,7 @@ const paginateWordByLevel: Resolver<{
 
   try {
     const total = await WordModel.countDocuments(query);
-    const data = await WordModel.find({level: level}).skip(skip).limit(limit).sort(sort);
+    const data = await WordModel.find({ level: level }).skip(skip).limit(limit).sort(sort);
 
     return {
       success: true,
@@ -79,8 +79,8 @@ const getWordByLevel: Resolver<{
   data?: Word[];
 }> = async (_, { level, skip }) => {
   try {
-    const total = await WordModel.countDocuments({level});
-    const data = await WordModel.find({level}).skip(skip).limit(1);
+    const total = await WordModel.countDocuments({ level });
+    const data = await WordModel.find({ level }).skip(skip).limit(1);
 
     return { 
       success: true,
@@ -103,8 +103,8 @@ const getEveryWordsByLevel: Resolver<{
   data?: Word[]
 }> = async (_, { level }) => {
   try {
-    const data = await WordModel.find({level});
-    const total = await WordModel.countDocuments({level});
+    const data = await WordModel.find({ level });
+    const total = await WordModel.countDocuments({ level });
     
     return {
       success: true,
@@ -149,7 +149,8 @@ const getRandomWord: Resolver<{
   data?: Word[];
 }> = async (_, { level }) => {
   try {
-    const data = await WordModel.aggregate([{ $match: { level } }, { $sample: {size: 1} }]);
+    const data = await WordModel.aggregate([{ $match: { level } }, { $sample: { size: 1 } }]);
+    
     return { 
       success: true,
       data,
@@ -171,15 +172,16 @@ const getWordQuizOptions: Resolver<{
   data?: Word[];
 }> = async (_, { answerWordId }) => {
   try {
-    const data = await WordModel.aggregate([{ $match: { level: 1, _id: {$ne: answerWordId}}}, {$sample: {size: 3} }])
+    const data = await WordModel.aggregate([{ $match: { level: 1, _id: { $ne: answerWordId } } }, { $sample: { size: 3 } }])
+    
     return {
       success: true,
-      data
+      data,
     };
   } catch (e: any) {
     return {
       success: false,
-      error: e.message
+      error: e.message,
     };
   }
 };

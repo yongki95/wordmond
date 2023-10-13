@@ -10,7 +10,7 @@ export const MiddleMain: FC = () => {
         <FontAwesomeIcon 
           icon={faMagnifyingGlass} 
           size='2x' 
-          style={{ color: 'black' }} 
+          style={{color: 'black'}} 
         />
         <p>
           <b>Test your Vocabulary</b>  Knowledge 
@@ -22,7 +22,7 @@ export const MiddleMain: FC = () => {
         <FontAwesomeIcon 
           icon={faChalkboardUser} 
           size='2x' 
-          style={{ color: 'black' }} 
+          style={{color: 'black'}} 
         />
         <p>
           <b>Memorize Words</b> from selected level. 
@@ -34,7 +34,7 @@ export const MiddleMain: FC = () => {
         <FontAwesomeIcon 
           icon={faComments} 
           size='2x' 
-          style={{ color: 'black' }} 
+          style={{color: 'black'}} 
         />
         <p>
           <b>Go Outside,</b> Join Community that you can 
@@ -81,4 +81,3 @@ const Session = styled.div`
     }
   }
 `;
-

@@ -9,16 +9,37 @@ import { WebSocketServer } from 'ws';
 
 import { PORT, MONGO_URI } from './constants';
 import { resolvers, typeDefs } from './graphql';
+import { GraphqlContext } from './graphql/type';
+import { UserModel } from './models';
 import { app as restApi } from './rest/index';
 
 const start = async () => {
   const app = express();
   app.use(cors());
   
-	app.use('/',restApi);
+	app.use('/', restApi);
     
   const schema = makeExecutableSchema({ typeDefs, resolvers });
-  const apolloServer = new ApolloServer({ schema });
+  const apolloServer = new ApolloServer<GraphqlContext>({
+    schema,
+    context: async ({ req }) => {
+      try {
+        const token = (req.headers.authorization || '').split(' ')[1];
+        const user = await UserModel.findOne({ token });
+
+        return {
+          user,
+          req,
+        };
+      } catch (e: any) {
+        return {
+          user: null,
+          req,
+        };
+      }
+    },
+  });
+
   await apolloServer.start();
   
   apolloServer.applyMiddleware({

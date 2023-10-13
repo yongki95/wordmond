@@ -1,4 +1,13 @@
-import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { 
+  createContext, 
+  FC, 
+  ReactNode, 
+  useCallback, 
+  useContext, 
+  useEffect, 
+  useMemo, 
+  useState 
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LOCAL_STORAGE_KEY_TOKEN, LOCAL_STORAGE_KEY_USER_ID } from './constants';
@@ -30,8 +39,8 @@ export const useAuth = (required?: boolean) => {
       } else if (!required && hasSession) {
         navigate('/');
         return;
-      }
-    }
+      };
+    };
   }, [required, hasSession]);
 
   return context;
@@ -45,7 +54,7 @@ export const useSetToken = () => {
       localStorage.removeItem(LOCAL_STORAGE_KEY_TOKEN);
     } else {
       localStorage.setItem(LOCAL_STORAGE_KEY_TOKEN, token);
-    }
+    };
 
     setToken(token);
   }, [setToken]);

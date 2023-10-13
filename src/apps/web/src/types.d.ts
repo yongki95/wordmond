@@ -38,7 +38,7 @@ type data = {
   __typename: string;
 };
 
-type ProblemObjType = {
+type QuestionObjType = {
   word: string;
   answer: string;
   choices: string[];
@@ -65,4 +65,12 @@ type CreateTestProps = {
 type WordFlashCardProps = {
   level: number;
   index: number;
+};
+
+type TestHistory = {
+  date: string;
+  score: number;
+  level: number;
+  language: string;
+  questions: string[];
 };

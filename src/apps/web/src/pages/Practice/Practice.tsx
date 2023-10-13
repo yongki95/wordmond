@@ -33,34 +33,40 @@ export const Practice: FC = () => {
       <LevelWrapper>
         <div>
           <h2>Choose Level</h2>
-          {levels.map(({ id, label }) => (
-            <Button
-              onClick={()=> { setLevelId(id) }}
-              key={id}
-            >
-              {label}
-            </Button>
-          ))}
+          {
+            levels.map(({ id, label }) => (
+              <Button
+                onClick={()=> {setLevelId(id)}}
+                key={id}
+              >
+                {label}
+              </Button>
+            ))
+          }
         </div>
         <div>
           <h2>Choose Language Type</h2>
-          {languageTypes.map((langType, index) => {
-            const [displayName, value] = Object.entries(langType)[0];
+          {
+            languageTypes.map((langType, index) => {
+              const [displayName, value] = Object.entries(langType)[0];
 
-            return (
-              <Button
-                onClick={() => setLanguage(value)}
-                key={index}
-              >
-                {displayName}
-              </Button>
-            );
-          })}
+              return (
+                <Button
+                  onClick={() => setLanguage(value)}
+                  key={index}
+                >
+                  {displayName}
+                </Button>
+              );
+            })
+          }
         </div>
       </LevelWrapper>
-      {levelId && language && (
-        <CreatePractice level={levelId} type={language} />
-      )}
+      {
+        levelId && language && (
+          <CreatePractice level={levelId} type={language} />
+        )
+      }
     </Wrapper>
   );
 };

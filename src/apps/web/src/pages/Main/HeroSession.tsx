@@ -2,9 +2,12 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 
+import { useAuth } from '../../auth';
 import logo from '../../hero_image/8576.jpg';
 
 export const HeroSession: FC = () => {
+  useAuth();
+  console.log(useAuth().hasSession);
   return (
     <Wrapper>
       <HeroText>
@@ -16,9 +19,15 @@ export const HeroSession: FC = () => {
             <br/> English Vocabulary. Speak with people 
             <br/> without afraid of Vocabulary.
           </p>          
-          <Button> 
-            <Link to='/sign-up'>Get Started</Link>
-          </Button>
+          {
+            useAuth().hasSession === false ?
+              <Button> 
+                <Link to='/sign-up'>Get Started</Link>
+              </Button> :
+              <Button> 
+                <Link to='/word'>Start Study</Link>
+              </Button>           
+          }
         </TextWrapper>
       </HeroText>
       <HeroImage>
@@ -133,4 +142,3 @@ const Button = styled.button`
     outline: none;
   }
 `;
-

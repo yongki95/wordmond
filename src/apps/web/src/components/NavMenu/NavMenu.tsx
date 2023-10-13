@@ -27,7 +27,7 @@ export const NavMenu: FC = () => {
 
   const toggleMenu = useCallback(() => {
     setIsOpen(prevState => !prevState)
-  }, [])
+  }, []);
 
   const handleLogout = useCallback(() => {
     setToken(null);
@@ -35,11 +35,13 @@ export const NavMenu: FC = () => {
 
   const renderMenuList = (menuList: { title: string, url: string }[]) => (
     <>
-      {menuList.map((menu, index) => (
-        <li key={index}>
-          <Link to={menu.url}>{menu.title}</Link>
-        </li>
-      ))}
+      {
+        menuList.map((menu, index) => (
+          <li key={index}>
+            <Link to={menu.url}>{menu.title}</Link>
+          </li>
+        ))
+      }
     </>
   );
 
@@ -49,16 +51,20 @@ export const NavMenu: FC = () => {
         <FontAwesomeIcon 
           icon={faBars} 
           size='2x' 
-          style={{ color: 'black' }} 
+          style={{color: 'black'}} 
         />
       </MenuButton>
       <MenuItems isOpen={isOpen}>
-        {!hasSession ? renderMenuList(normalMenuList) : (
-          <>
-            {renderMenuList(userMenuList)}
-            <button onClick={handleLogout}>sign out</button>
-          </>
-        )}
+        {
+          !hasSession ? renderMenuList(normalMenuList) : (
+            <>
+              {renderMenuList(userMenuList)}
+              <li onClick={handleLogout}>
+                <a href=''>Sign Out</a>
+              </li>
+            </>
+          )
+        }
       </MenuItems>
     </Wrapper>
   );

@@ -1,5 +1,5 @@
-import { faEnvelope, faLocationDot, faMobile, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faSquareFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faLocationDot, faMobile, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react';
 import styled from 'styled-components';
@@ -25,12 +25,14 @@ export const Footer: FC = () => {
         </Text>
       </Left>
       <Right>
-        {contactItems.map((item, index) => (
-          <ContactItem key={index}>
-            <StyledIcon icon={item.icon} size='lg' />
-            {item.text}
-          </ContactItem>
-        ))}
+        {
+          contactItems.map((item, index) => (
+            <ContactItem key={index}>
+              <StyledIcon icon={item.icon} size='lg' />
+              {item.text}
+            </ContactItem>
+          ))
+        }
       </Right>
     </Wrapper>
   );

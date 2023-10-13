@@ -25,7 +25,7 @@ const authLink = new ApolloLink((operation, forward) => {
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-})
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

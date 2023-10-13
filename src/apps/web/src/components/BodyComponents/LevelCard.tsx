@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FC } from 'react';
 import styled from 'styled-components';
 
@@ -10,7 +10,7 @@ export const LevelCard: FC<LevelCardAttributes> = ({ style, level }) => {
       <FontAwesomeIcon
         icon={faFaceSmile}
         size="6x"
-        style={{ color: "black" }}
+        style={{color: "black"}}
       />
     </Wrapper>
   );

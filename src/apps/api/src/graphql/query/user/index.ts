@@ -1,5 +1,13 @@
-import { UserModel } from '../../../models';
+import { User, UserModel } from '../../../models';
 import { Resolver } from '../../type';
+
+const me: Resolver<{}, User | null> = async (_, __, { user }) => {
+  if (!user) {
+    return null;
+  };
+
+  return user;
+};
 
 const getUserIdByToken: Resolver<{
   userToken: string;
@@ -10,6 +18,7 @@ const getUserIdByToken: Resolver<{
 }> = async (_, { userToken }) => {
   try {
     const userData = await UserModel.findOne({ token: userToken });
+
     return {
       success: true,
       _id: userData?._id,
@@ -31,6 +40,7 @@ const getUserAccountByToken: Resolver<{
 }> = async (_, { userToken }) => {
   try {
     const userData = await UserModel.findOne({ token: userToken });
+
     return {
       success: true,
       userName: userData?.email,
@@ -44,6 +54,7 @@ const getUserAccountByToken: Resolver<{
 };
 
 export {
+  me,
   getUserIdByToken,
   getUserAccountByToken,
 };

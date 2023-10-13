@@ -37,9 +37,12 @@ export const CreatePractice: FC<CreatePracticeAttributes> = ({ level, type }) =>
   const { 
     loading: wordLoading, 
     error: wordError, 
-    data: wordData, 
-    refetch: wordRefetch } = useQuery(GET_RANDOM_WORD, {
-    variables: { level },
+    data: wordData,
+    refetch: wordRefetch,
+  } = useQuery(GET_RANDOM_WORD, {
+    variables: { 
+      level, 
+    },
     onCompleted: data => {
       setWord(data.word.data[0]);
     },
@@ -48,9 +51,12 @@ export const CreatePractice: FC<CreatePracticeAttributes> = ({ level, type }) =>
   const { 
     loading: optionLoading, 
     error: optionError, 
-    data: optionData, 
+    data: optionData,
   } = useQuery(GET_QUIZ_OPTIONS, {
-    variables: { answerWordID: word?._id, level: level },
+    variables: { 
+      answerWordID: word?._id, 
+      level: level ,
+    },
     skip: !word,
   });
 
@@ -61,7 +67,7 @@ export const CreatePractice: FC<CreatePracticeAttributes> = ({ level, type }) =>
       wordRefetch().then((result) => {
         if (result?.data?.word?.data[0]) {
           setWord(result.data.word.data[0]);
-        }
+        };
       });  
     };
   }, [word, wordRefetch]);
@@ -73,22 +79,24 @@ export const CreatePractice: FC<CreatePracticeAttributes> = ({ level, type }) =>
   if (wordData?.word?.success && optionData?.option?.success) {
     const randomizedOptions = _.shuffle([
       wordData.word.data[0], 
-      ...optionData.option.data
+      ...optionData.option.data,
     ]);
 
     return (
       <Wrapper>
         <h2>{type ==='eng' && word.eng || type === 'kor' && word.kor}</h2>
-        {randomizedOptions.map((option, index) => (
-          <p 
-          key={index} 
-          onClick={() => handleAnswer(option.eng)}
-          >
-            {index + 1}: {
-            type === 'eng' ? option.kor: type === 'kor'&& option.eng 
-          }
-          </p>          
-        ))}  
+        {
+          randomizedOptions.map((option, index) => (
+            <p 
+              key={index} 
+              onClick={() => handleAnswer(option.eng)}
+            >
+              {index + 1}: {
+              type === 'eng' ? option.kor: type === 'kor'&& option.eng 
+            }
+            </p>          
+          ))
+        }  
       </Wrapper>
     );
   };
@@ -97,4 +105,4 @@ export const CreatePractice: FC<CreatePracticeAttributes> = ({ level, type }) =>
 };
 
 const Wrapper = styled.div`
-`
+`;

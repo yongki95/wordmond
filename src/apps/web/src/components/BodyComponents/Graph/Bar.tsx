@@ -1,8 +1,18 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-export const Bar: FC<BarAttributes> = ({ level, value, bColor }) => {
-  return <StyledBar level={level} value={value} bColor={bColor} />;
+export const Bar: FC<BarAttributes> = ({ 
+  level, 
+  value, 
+  bColor,
+ }) => {
+  return (
+    <StyledBar 
+      level = {level} 
+      value = {value} 
+      bColor = {bColor} 
+    />
+  )
 };
 
 const StyledBar = styled.div<BarAttributes>`
@@ -10,7 +20,7 @@ const StyledBar = styled.div<BarAttributes>`
   height: ${props => `${props.value}%`};
   position: relative;
   transition: height 0.5s;
-  background-color: ${({ bColor }) => bColor};
+  background-color: ${({bColor}) => bColor};
 
   &::before {
     content: '${props => props.level}';

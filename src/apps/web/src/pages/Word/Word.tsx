@@ -1,11 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
 import { faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FC, useMemo, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 import { WordTop } from './TopWord';
 import { COLUMN_WIDTH } from '../../constants';
+import { useAuth } from '../../auth';
 
 const PAGINATE_WORDS_BY_LEVEL = gql`
   query PaginateWordByLevel($page: Int!, $limit: Int!, $level: Int!) {
@@ -25,20 +26,31 @@ const PAGINATE_WORDS_BY_LEVEL = gql`
 const renderWords = (words: Word[]) => (
   words.map((Word: Word) => (
     <tr key={Word._id}>
-      <td style={{ width: COLUMN_WIDTH }}>{Word.level}</td>
-      <td style={{ width: COLUMN_WIDTH }}>{Word.eng}</td>
-      <td style={{ width: COLUMN_WIDTH }}>{Word.kor}</td>
+      <td style={{width: COLUMN_WIDTH}}>{Word.level}</td>
+      <td style={{width: COLUMN_WIDTH}}>{Word.eng}</td>
+      <td style={{width: COLUMN_WIDTH}}>{Word.kor}</td>
     </tr>
   ))
 );
 
-const PagenateWordsByLevel: FC<PagenateWordsByLevelProps> = ({page, level}) => {
-  const{ loading, error, data } = useQuery(PAGINATE_WORDS_BY_LEVEL, {
-    variables: { page, limit: 10, level }
+const PagenateWordsByLevel: FC<PagenateWordsByLevelProps> = ({ page, level }) => {
+  useAuth(true);
+
+  const { 
+    loading, 
+    error, 
+    data,
+  } = useQuery(PAGINATE_WORDS_BY_LEVEL, {
+    variables: { 
+      page, 
+      limit: 10, 
+      level, 
+    },
   });
   
   if(loading) return <p>Loading...</p>;
   if(error) return <p>Error! {error.message}</p>;
+  
   return (
     <div>
       <Table>
@@ -61,6 +73,8 @@ export const Word: FC = () => {
   const [page, setPage] = useState(1);
   const [index, setIndex] = useState(1);
   const [level, setLevel] = useState(1);
+
+  useAuth();
 
   const levels = useMemo(() => {
     return [ 
@@ -93,20 +107,24 @@ export const Word: FC = () => {
     };
   };
 
+  const handleClick = useCallback((id: number) => {
+    setLevel(id); 
+    setIndex(0); 
+    setPage(0);
+  }, [setLevel, setIndex, setPage]);
+
   return (
     <Wrapper>
        <LevelWrapper>
         <div>
           <h2>Choose Level</h2>
-          {levels.map((level, index) => (
-            <Button onClick={()=> {
-              setLevel(level.id); 
-              setIndex(0); 
-              setPage(0);
-            }} 
-            key={index}>{level.label}
-            </Button>
-          ))}
+          {
+            levels.map((level, index) => (
+              <Button onClick={()=> {handleClick(level.id)}} 
+              key={index}>{level.label}
+              </Button>
+            ))
+          }
         </div>
       </LevelWrapper>
       <WordTop 
@@ -123,13 +141,13 @@ export const Word: FC = () => {
           onClick={handlePreviousPage} 
           icon={faAngleDoubleLeft} 
           size='sm' 
-          style={{ color: 'black' }} 
+          style={{color: 'black'}} 
         />
         <FontAwesomeIcon 
           onClick={handleNextPage} 
           icon={faAngleDoubleRight} 
           size='sm' 
-          style={{ color: 'black' }} 
+          style={{color: 'black'}} 
         />
       </ButtonWrapper>
     </Wrapper>

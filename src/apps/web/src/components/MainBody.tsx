@@ -3,16 +3,18 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 
+import { useAuth } from '../auth';
 import { About } from '../pages/About/About';
 import { TestHistory } from '../pages/History/TestHistory';
 import { Login } from '../pages/Login/Login';
-import { Home } from '../pages/Main/Main';
+import { Home } from '../pages/Main/Home';
 import { Practice } from '../pages/Practice/Practice';
 import { SignUp } from '../pages/SignUp/SignUp';
 import { Test } from '../pages/Test/Test';
 import { Word } from '../pages/Word/Word';
 
 export const MainBody: FC = () => {
+  useAuth();
   let location = useLocation();
 
   const routes = [
@@ -35,13 +37,15 @@ export const MainBody: FC = () => {
           timeout={300}
         >
           <Routes>
-            {routes.map((route, index) => (
-              <Route 
-                key={index} 
-                path={route.path} 
-                element={route.component} 
-              />
-            ))}
+            {
+              routes.map((route, index) => (
+                <Route 
+                  key={index} 
+                  path={route.path} 
+                  element={route.component} 
+                />
+              ))
+            }
           </Routes>
         </CSSTransition>
       </TransitionGroup>
@@ -72,4 +76,3 @@ const Wrapper = styled.div`
       transition: opacity 300ms ease-in;
   }
 `;
-

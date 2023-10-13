@@ -71,38 +71,43 @@
     const [submit, setSubmit] = useState<boolean | null>(null);
     const [isButtonVisible, setIsButtonVisible] = useState<boolean>(true);
     const [savedQuestionIds, setSavedQuestionIds] = useState<string[]>([]);
+    const { token } = useAuth();
 
     const [saveTestHistory] = useMutation<{
       saveTestHistory: {
         success: boolean; 
         error?: string;
-        _id?: string;}}>(SAVE_TEST_HISTORY);
+        _id?: string;
+      },
+    }>(SAVE_TEST_HISTORY);
 
     const [saveTestQuestion] = useMutation<{
       saveTestQuestion: {
         success: boolean;
         error?: string;
-        _id: string;}}>(SAVE_TEST_QUESTION);
+        _id: string;
+      },
+    }>(SAVE_TEST_QUESTION);
 
     useEffect(() => {
       if (count <= 9) {
         wordRefetch().then((result) => {
           if (result?.data?.word?.data[0]) {
             setWord(result.data.word.data[0]);
-          }
+          };
         });
-      }
+      };
     }, [count]);
-
-    const { token } = useAuth();
 
     const { 
       loading: wordLoading,
       error: wordError, 
       data: wordData, 
-      refetch: wordRefetch 
+      refetch: wordRefetch, 
     } = useQuery(GET_RANDOM_WORD, {
-      variables: { level },
+      variables: { 
+        level, 
+      },
       onCompleted: data => {
         setWord(data.word.data[0]);
       },
@@ -110,31 +115,33 @@
 
     const { 
       loading: optionLoading, 
-      error: optionError, data: 
-      optionData,
+      error: optionError, 
+      data: optionData,
     } = useQuery(GET_QUIZ_OPTIONS, {
       variables: { 
-        answerWordID: 
-        word?._id, 
-        level: level 
+        answerWordID: word?._id, 
+        level: level, 
       },
       skip: !word,
       onCompleted: data => {
         if(count <= 9) {
           const problem = createProblemObj(
             wordData.word.data[0], 
-            optionData.option.data, type
+            optionData.option.data, 
+            type,
           );
         };
-      }
+      },
     });
 
     const { 
       loading: userLoading, 
       error: userError, 
-      data: userData 
+      data: userData,
     } = useQuery(GET_USER_ID, {
-      variables: { userToken: token },
+      variables: { 
+        userToken: token, 
+      },
       onCompleted: userData => {
         setUserId(userData.getUserIdByToken._id);
       },
@@ -143,7 +150,8 @@
     const createProblemObj = (
       problemData: data, 
       optionDatas: data[], 
-      language: string): ProblemObjType => {
+      language: string,
+    ): QuestionObjType => {
       if(language === 'eng') {
         const problemObj = { 
           word: problemData.eng,
@@ -153,7 +161,7 @@
             ...optionDatas.map(option => option.kor)
           ]),
           userAnswer: null,
-        }
+        };
 
         return problemObj;
       } else if(language === 'kor') {
@@ -165,7 +173,7 @@
             ...optionDatas.map(option => option.eng)
           ]),
           userAnswer: null,
-        } 
+        };
 
         return problemObj;
       } else {
@@ -174,23 +182,24 @@
     };
 
     const handleAnswer = useCallback(async (
-      problemObj: ProblemObjType, 
-      selectedOption: string) => {
+        problemObj: QuestionObjType, 
+        selectedOption: string
+    ) => {
       const updatedProblemObj = {
         ...problemObj,
-        userAnswer: selectedOption
+        userAnswer: selectedOption,
       };
 
       const response = await saveTestQuestion({
         variables: {
           data: updatedProblemObj,
-        }
+        },
       });
 
       if(response.data?.saveTestQuestion.success) {
         setSavedQuestionIds([
           ...savedQuestionIds, 
-          response.data?.saveTestQuestion._id
+          response.data?.saveTestQuestion._id,
         ]);
       };
 
@@ -220,7 +229,7 @@
       const response = await saveTestHistory({
         variables: {
           data: TestHistoryData,
-        }
+        },
       });
 
       setSavedQuestionIds([]);
@@ -242,32 +251,40 @@
       const problem = createProblemObj(
         wordData.word.data[0], 
         optionData.option.data, 
-        type
+        type,
       );
       return (
         <Wrapper>
-            {count < 10 ? (
-                <>
-                    <h2>{problem?.word}</h2>
-                    {problem?.choices.map((option, index) => (
-                        <p key={index} onClick={() => handleAnswer(problem, option)}>
-                            {index + 1}: {option}
-                        </p>
-                    ))}
-                </>
+          {
+            count < 10 ? (
+              <>
+                <h2>{problem?.word}</h2>
+                  {
+                    problem?.choices.map((option, index) => (
+                      <p key={index} onClick={() => handleAnswer(problem, option)}>
+                          {index + 1}: {option}
+                      </p>
+                    ))
+                  }
+              </>
             ) : (
-                <>
-                    {isButtonVisible && (
-                        <button onClick={handleSubmit}>Submit Test</button>
-                    )}
-                    {submit && (
-                        <>
-                            <h2>{`your score is ${score} out of 10`}</h2>
-                            <button onClick={handleRestart}>restart</button>
-                        </>
-                    )}
-                </>
-            )}
+              <>
+                {
+                  isButtonVisible && (
+                    <button onClick={handleSubmit}>Submit Test</button>
+                  )
+                }
+                {
+                  submit && (
+                    <>
+                      <h2>{`your score is ${score} out of 10`}</h2>
+                      <button onClick={handleRestart}>restart</button>
+                    </>
+                  )
+                }
+              </>
+            )
+          }
         </Wrapper>
       );
     };
@@ -276,4 +293,4 @@
   };
 
   const Wrapper = styled.div`
-  `
+  `;

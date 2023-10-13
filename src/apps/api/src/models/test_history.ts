@@ -11,7 +11,7 @@ export class TestHistory extends Document {
   @prop({ required: true })
   public date!: Date;
 
-  @prop({ required: true})
+  @prop({ required: true })
   public score!: number;
 
   @prop({ required: true })
@@ -22,6 +22,6 @@ export class TestHistory extends Document {
 
   @prop({ required: true, ref: () => Question })
   public questions!: Ref<Question>[];
-}
+};
 
 export const TestHistoryModel = getModelForClass(TestHistory);

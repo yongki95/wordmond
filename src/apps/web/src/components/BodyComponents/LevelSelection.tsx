@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { LevelCard } from './LevelCard';
 
-export const MiddleMain: FC = () => {
+export const LevelSelection: FC = () => {
   const cardData = [
     { level: 1, style: { width: 350, height: 200, backgroundColor: '#97ecf1' } },
     { level: 2, style: { width: 350, height: 200, backgroundColor: '#ffcbcb' } },
@@ -15,14 +15,16 @@ export const MiddleMain: FC = () => {
 
   return (
     <Wrapper>
-    {cardData.map((data, index) => (
-      <LevelCard 
-        key={index} 
-        level={data.level} 
-        style={data.style} 
-      />
-    ))}
-  </Wrapper>
+      {
+        cardData.map((data, index) => (
+          <LevelCard 
+            key={index} 
+            level={data.level} 
+            style={data.style} 
+          />
+        ))
+      }
+    </Wrapper>
   );
 };
 

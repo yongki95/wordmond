@@ -9,7 +9,7 @@ export class User extends Document {
   @prop({ required: true })
   public password!: string;
 
-  @prop({ default: uuidv4})
+  @prop({ default: uuidv4 })
   public token?: string;
 };
 

@@ -18,8 +18,14 @@ const GET_EVERY_WORD_BY_LEVEL = gql`
 `;
 
 export const WordFlashchard: React.FC<WordFlashCardProps> = ({ level, index }) => {
-  const { loading, error, data } = useQuery(GET_EVERY_WORD_BY_LEVEL, {
-    variables: { level }
+  const { 
+    loading, 
+    error, 
+    data, 
+  } = useQuery(GET_EVERY_WORD_BY_LEVEL, {
+    variables: { 
+      level 
+    },
   });
 
   if (loading) {

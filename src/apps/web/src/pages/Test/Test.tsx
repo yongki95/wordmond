@@ -2,27 +2,29 @@ import { FC, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 import { CreateTest } from './CreateTest';
-
+import { useAuth } from '../../auth';
 
 export const Test: FC = () => {
   const [level, setLevel] = useState(0);
   const [type, setType] = useState<string>('');
 
+  useAuth(true);
+
   const levels = useMemo(() => {
     return [ 
-      {level: 'A1', numLevel: 1},
-      {level: 'A2', numLevel: 2},
-      {level: 'B1', numLevel: 3},
-      {level: 'B2', numLevel: 4},
-      {level: 'C1', numLevel: 5},
-      {level: 'C2', numLevel: 6},
+      { level: 'A1', numLevel: 1 },
+      { level: 'A2', numLevel: 2 },
+      { level: 'B1', numLevel: 3 },
+      { level: 'B2', numLevel: 4 },
+      { level: 'C1', numLevel: 5 },
+      { level: 'C2', numLevel: 6 },
     ];
   }, []);
 
   const testTypes = useMemo(() => {
     return [
-      {type: 'eng'},
-      {type: 'kor'},
+      { type: 'eng' },
+      { type: 'kor' },
     ];
   }, []);
 
@@ -31,28 +33,36 @@ export const Test: FC = () => {
       <LevelWrapper>
         <div>
           <h2>Choose Level</h2>
-          {levels.map((level, index) => (
-            <Button 
-              onClick={()=> {setLevel(level.numLevel)}} 
-              key={index}
+          {
+            levels.map((level, index) => (
+              <Button 
+                onClick={()=> {setLevel(level.numLevel)}} 
+                key={index}
               >
                 {level.level}
-            </Button>
-          ))}
+              </Button>
+            ))
+          }
         </div>
         <div>
           <h2>Choose Type</h2>
-          {testTypes.map((type, index) => (
-            <Button 
-              onClick={()=> {setType(type.type)}} 
-              key={index}
+          {
+            testTypes.map((type, index) => (
+              <Button 
+                onClick={()=> {setType(type.type)}} 
+                key={index}
               >
                 {type.type}
-            </Button> 
-          ))}
+              </Button> 
+            ))
+          }
         </div>
       </LevelWrapper>
-      {level !== 0 && type !== "" && <CreateTest level={level} type={type} />}
+      {
+        level !== 0 && type !== "" && (
+          <CreateTest level={level} type={type} />
+        )
+      }
     </Wrapper>
   );
 };

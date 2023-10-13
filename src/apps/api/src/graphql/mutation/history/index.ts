@@ -9,11 +9,11 @@ const saveTestHistory: Resolver<{
   _id?: string;
 }> = async (_, { data }) => {
   try {
-    const testHisotry = await TestHistoryModel.create(data);
+    const TestHistory = await TestHistoryModel.create(data);
     
     return {
       success: true,  
-      _id: testHisotry._id,
+      _id: TestHistory._id,
     };
   } catch (e: any) {
     return {

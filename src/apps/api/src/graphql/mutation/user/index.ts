@@ -7,6 +7,7 @@ const createUser: Resolver<{
   data: Pick<User, 'email' | 'password'>;
 }, {
   success: boolean;
+  error?: string;
   _id?: string;
 }> = async (_, { data }) => {
   try {
@@ -36,6 +37,7 @@ const loginUser: Resolver<{
     
     if (user && user.password === data.password) {
       user.token = uuidv4();
+
       await user.save();
       
       return {
@@ -47,7 +49,7 @@ const loginUser: Resolver<{
         success: false,
         error: 'Invalid email or password',
       };
-    }
+    };
   } catch (e: any) {
     return {
       success: false,
@@ -60,4 +62,3 @@ export {
   createUser,
   loginUser,
 };
-

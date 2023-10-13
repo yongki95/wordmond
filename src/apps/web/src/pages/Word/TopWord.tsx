@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 
-import { WordFlashchard } from './FlashCard'; 
+import { WordFlashchard } from './WordFlashCard'; 
 
 export const WordTop: React.FC<WordTopProps> = ({ 
   level, 
   index, 
   goLeft,
-  goRight
+  goRight,
 }) => {
   return(
     <Wrapper>

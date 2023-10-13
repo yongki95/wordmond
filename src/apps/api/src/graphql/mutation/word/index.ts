@@ -5,6 +5,7 @@ const createWord: Resolver<{
   data: Pick<Word, 'level' | 'eng' | 'kor'>;
 }, {
   success: boolean;
+  error?: string;
   _id?: string;
 }> = async (_, { data }) => {
   try {
@@ -50,7 +51,7 @@ const updateWordKor: Resolver<{
   error?: string;
 }> = async (_, { eng, kor }) => {
   try {
-    await WordModel.findOneAndUpdate({eng: eng}, {kor: kor}, {new: true});
+    await WordModel.findOneAndUpdate({ eng: eng }, { kor: kor }, { new: true });
     
     return {
       success: true,
@@ -62,7 +63,6 @@ const updateWordKor: Resolver<{
     };
   }
 };
-
 
 export {
   createWord,

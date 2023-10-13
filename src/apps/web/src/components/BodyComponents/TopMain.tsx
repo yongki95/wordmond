@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC, useCallback} from 'react';
 import styled from 'styled-components';
 
@@ -27,11 +27,11 @@ const LeftMoveButton: FC = () => {
   
   return (
     <div>
-      <Button typeof = 'button' onClick={handleDelete}>
+      <Button typeof='button' onClick={handleDelete}>
         <FontAwesomeIcon 
           icon={faAnglesLeft} 
           size='3x' 
-          style={{ color: 'gray' }} 
+          style={{color: 'gray'}} 
         />
       </Button>
     </div>
@@ -45,7 +45,7 @@ const RightMoveButton: FC = () => {
   
   return (
     <div>
-      <Button typeof = 'button' onClick={handleDelete}>
+      <Button typeof='button' onClick={handleDelete}>
         <FontAwesomeIcon 
           icon={faAnglesRight} 
           size='3x' 
@@ -55,7 +55,6 @@ const RightMoveButton: FC = () => {
     </div>
   );
 };
-
 
 const Wrapper = styled.div`
   display:flex;

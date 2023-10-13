@@ -3,44 +3,58 @@ import { gql } from 'apollo-server-express';
 export const typeDefs = gql`
   scalar JSON
 
-	type Word{
-		_id: ID!
-		level: Int!
-		eng: String!
-		kor: String!
-	}
+  type Word{
+    _id: ID!
+    level: Int!
+    eng: String!
+    kor: String!
+  }
 
-	type User {
-		_id: ID!
-		email: String!
-		password: String!
-		token: String
-	}
-	
-	type Question {
-		_id: ID!
-		word: String!
-		answer: String
-		choices: [String!]!
-		userAnswer: String!
-	}
+  type User {
+    _id: ID!
+    email: String!
+    password: String!
+    token: String
 
-	type TestHistory {
-		_id: ID!
-		user: User!
-		date: String!
-		score: Int!
-		level: Int!
-		language: String!
-		questions: [Question!]!
-	}
-	
-	type PaginateWordResult {
-		success: Boolean!
-		error: String
-		total: Int
-		data: [Word!]
-	}
+    paginateTestHistory(
+      query: JSON
+      page: Int!
+      limit: Int!
+      sort: JSON
+    ): PaginateTestHistoryResult!
+  }
+
+  type Question {
+    _id: ID!
+    word: String!
+    answer: String
+    choices: [String!]!
+    userAnswer: String!
+  }
+
+  type TestHistory {
+    _id: ID!
+    user: User!
+    date: String!
+    score: Int!
+    level: Int!
+    language: String!
+    questions: [Question!]!
+  }
+
+  type PaginateTestHistoryResult {
+    success: Boolean!
+    error: String
+    total: Int
+    data: [TestHistory!]
+  }
+  
+  type PaginateWordResult {
+    success: Boolean!
+    error: String
+    total: Int
+    data: [Word!]
+  }
   
   type GetWordResult {
     success: Boolean!
@@ -69,136 +83,138 @@ export const typeDefs = gql`
     data: Word
   }
 
-	input WordInput {
-		level: Int!
-		eng: String!
-		kor: String!
-	}
+  input WordInput {
+    level: Int!
+    eng: String!
+    kor: String!
+  }
 
-	input CreateUserInput {
-		eamil: String!
-		password: String!
-	}
+  input CreateUserInput {
+    email: String!
+    password: String!
+  }
 
-	type CreateUserResult {
-		success: Boolean!
-		error: String
-		_id: ID
-	}
-	
-	type CreateWordResult {
-		success: Boolean!
-		error: String
-		_id: ID
-	}
+  type CreateUserResult {
+    success: Boolean!
+    error: String
+    _id: ID
+  }
+  
+  type CreateWordResult {
+    success: Boolean!
+    error: String
+    _id: ID
+  }
 
-	type GetUserIDByTokenResult {
-		success: Boolean!
-		error: String
-		_id: ID
-	}
+  type GetUserIDByTokenResult {
+    success: Boolean!
+    error: String
+    _id: ID
+  }
 
-	type GetWordByLevelResult {
-		success: Boolean!
-		error: String
-		total: Int
-		data: [Word]
-	}
+  type GetWordByLevelResult {
+    success: Boolean!
+    error: String
+    total: Int
+    data: [Word]
+  }
 
-	type GetRandomWordResult {
-		success: Boolean!
-		error: String
-		data: [Word!]
-	}
+  type GetRandomWordResult {
+    success: Boolean!
+    error: String
+    data: [Word!]
+  }
 
-	type GetWordQuizOptionsResult {
-		success: Boolean!
-		error: String
-		data: [Word!]!
-	}
+  type GetWordQuizOptionsResult {
+    success: Boolean!
+    error: String
+    data: [Word!]!
+  }
 
-	type GetEveryWordsByLevelResult {
-		success: Boolean!
-		error: String
-		total: Int!
-		data: [Word!]!
-	}
+  type GetEveryWordsByLevelResult {
+    success: Boolean!
+    error: String
+    total: Int!
+    data: [Word!]!
+  }
 
-	type PaginateWordByLevelResult {
-		success: Boolean!
-		error: String
-		total: Int!
-		data: [Word!]
-	}
+  type PaginateWordByLevelResult {
+    success: Boolean!
+    error: String
+    total: Int!
+    data: [Word!]
+  }
 
-	input LoginInput {
-		email: String!
-		password: String!
-	}
+  input LoginInput {
+    email: String!
+    password: String!
+  }
 
-	input TestQuestionInput {
-		word: String!
-		answer: String!
-		choices: [String!]!
-		userAnswer: String!
-	}
+  input TestQuestionInput {
+    word: String!
+    answer: String!
+    choices: [String!]!
+    userAnswer: String!
+  }
 
-	input TestHistoryInput {
-		user: ID!
-		date: String!
-		score: Int!
-		level: Int!
-		language: String!
-		questions: [ID!]!
-	}
-	
-	type GetUserAccountByTokenResult {
-		success: Boolean!
-		error: String
-		eamil: String!
-	}
+  input TestHistoryInput {
+    user: ID!
+    date: String!
+    score: Int!
+    level: Int!
+    language: String!
+    questions: [ID!]!
+  }
+  
+  type GetUserAccountByTokenResult {
+    success: Boolean!
+    error: String
+    email: String!
+  }
 
-	type SaveTestHistoryResult {
-		success: Boolean!
-		error: String
-		_id: ID
-	}
+  type SaveTestHistoryResult {
+    success: Boolean!
+    error: String
+    _id: ID
+  }
 
-	type GetTestHistoriesByUserResult {
-		success: Boolean!
-		error: String
-		data: [TestHistory!]
-	}
+  type GetTestHistoriesByUserResult {
+    success: Boolean!
+    error: String
+    data: [TestHistory!]
+  }
 
-	type SaveTestQuestionResult {
-		success: Boolean!
-		error: String
-		_id: ID!
-	}
+  type SaveTestQuestionResult {
+    success: Boolean!
+    error: String
+    _id: ID!
+  }
 
-	type LoginUserResult {
-		success: Boolean!
-		error: String
-		token: String
-	}
-	
-	type Query {
-		paginateWord(
-			query: JSON
-			page: Int!
-			limit: Int!
-			sort: JSON
-		): PaginateWordResult!
+  type LoginUserResult {
+    success: Boolean!
+    error: String
+    token: String
+  }
+  
+  type Query {
+    me: User
 
-		paginateWordByLevel(
-			query: JSON
-			page: Int!
-			limit: Int!
-			sort: JSON
-			level: Int!
-			): PaginateWordByLevelResult!
+    paginateWord(
+      query: JSON
+      page: Int!
+      limit: Int!
+      sort: JSON
+    ): PaginateWordResult!
 
-		getWord(
+    paginateWordByLevel(
+      query: JSON
+      page: Int!
+      limit: Int!
+      sort: JSON
+      level: Int!
+      ): PaginateWordByLevelResult!
+
+    getWord(
       _id: ID!
     ): GetWordResult!
 
@@ -206,65 +222,65 @@ export const typeDefs = gql`
       term: String!
     ): SearchWordResult!
 
-		getWordByLevel(
-			skip: Int!
-			level: Int!
-		): GetWordByLevelResult!
-		
-		getRandomWord(
-			level: Int!
-		): GetRandomWordResult!
+    getWordByLevel(
+      skip: Int!
+      level: Int!
+    ): GetWordByLevelResult!
+    
+    getRandomWord(
+      level: Int!
+    ): GetRandomWordResult!
 
-		getWordQuizOptions(
-			answerWordID: ID!
-			level: Int!
-		): GetWordQuizOptionsResult!
+    getWordQuizOptions(
+      answerWordID: ID!
+      level: Int!
+    ): GetWordQuizOptionsResult!
 
-		getEveryWordsByLevel(
-			level: Int!
-		): GetEveryWordsByLevelResult!
+    getEveryWordsByLevel(
+      level: Int!
+    ): GetEveryWordsByLevelResult!
 
-		getUserIdByToken(
-			userToken: String!
-		): GetUserIDByTokenResult!
+    getUserIdByToken(
+      userToken: String!
+    ): GetUserIDByTokenResult!
 
-		getUserAccountByToken(
-			userToken: String!
-		): GetUserAccountByTokenResult!
+    getUserAccountByToken(
+      userToken: String!
+    ): GetUserAccountByTokenResult!
 
-		getTestHistoriesByUser(
-			userId: String!
-		): GetTestHistoriesByUserResult!
-	}
+    getTestHistoriesByUser(
+      userId: String!
+    ): GetTestHistoriesByUserResult!
+  }
 
-	type Mutation {
-		createWord(
-			data: WordInput!
-  	): CreateWordResult!
+  type Mutation {
+    createWord(
+      data: WordInput!
+    ): CreateWordResult!
 
-		deleteWordById(
-			_id: ID!
-		): DeleteWordIdResult!
+    deleteWordById(
+      _id: ID!
+    ): DeleteWordIdResult!
 
     updateWordKor(
-		  eng: String!
-		  kor: String!
+      eng: String!
+      kor: String!
     ): UpdateWordKorResult!
 
-		createUser(
-			data: CreateUserInput!
-		): CreateUserResult
+    createUser(
+      data: CreateUserInput!
+    ): CreateUserResult!
 
-		loginUser(
-			data: LoginInput!
-		): LoginUserResult!
+    loginUser(
+      data: LoginInput!
+    ): LoginUserResult!
 
-		saveTestQuestion(
-			data: TestQuestionInput!
-		): SaveTestQuestionResult!
+    saveTestQuestion(
+      data: TestQuestionInput!
+    ): SaveTestQuestionResult!
 
-		saveTestHistory(
-			data: TestHistoryInput!
-		): SaveTestHistoryResult!
-	}
+    saveTestHistory(
+      data: TestHistoryInput!
+    ): SaveTestHistoryResult!
+  }
 `;

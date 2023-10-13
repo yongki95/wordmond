@@ -1,12 +1,10 @@
+import { ExpressContext } from 'apollo-server-express';
+
+import { User } from '../models/User';
+
 export type GraphqlContext = {
-  adminUser: AdminUser | null;
-  req: {
-    ip: string;
-    method?: "GET" | "POST" | "DELETE" | "PUT" | string;
-    path?: typeof URL.prototype.pathname;
-    protocol?: typeof URL.prototype.protocol;
-    userAgent?: string;
-  };
+  user: User | null;
+  req: ExpressContext['req'];
 };
 
 export type Resolver<Arguments, Returns, Parent = any> = {
