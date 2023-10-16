@@ -12,6 +12,8 @@ const createUser: Resolver<{
 }> = async (_, { data }) => {
   try {
     const user = await UserModel.create(data);
+    await user.hashPassword();
+    await user.save();
 
     return {
       success: true,
@@ -35,7 +37,7 @@ const loginUser: Resolver<{
   try {
     const user = await UserModel.findOne({ email: data.email });
     
-    if (user && user.password === data.password) {
+    if (user && await user.comparePassword(data.password)) {
       user.token = uuidv4();
 
       await user.save();
