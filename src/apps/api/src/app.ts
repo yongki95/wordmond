@@ -1,6 +1,7 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
+import { config } from 'dotenv';
 import express from 'express';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { createServer } from 'http';
@@ -13,12 +14,18 @@ import { GraphqlContext } from './graphql/type';
 import { UserModel } from './models';
 import { app as restApi } from './rest/index';
 
+
 const start = async () => {
+  config({ path: './api/.env' });
+
   const app = express();
+  const SECRET_KEY = process.env.SECRET_KEY || 'default_key';
+  
   app.use(cors());
   
 	app.use('/', restApi);
     
+
   const schema = makeExecutableSchema({ typeDefs, resolvers });
   const apolloServer = new ApolloServer<GraphqlContext>({
     schema,
