@@ -31,7 +31,7 @@ export const Test: FC = () => {
   return(
     <Wrapper>
       <LevelWrapper>
-        <div>
+        <Section>
           <h2>Choose Level</h2>
           {
             levels.map((level, index) => (
@@ -43,8 +43,6 @@ export const Test: FC = () => {
               </Button>
             ))
           }
-        </div>
-        <div>
           <h2>Choose Type</h2>
           {
             testTypes.map((type, index) => (
@@ -56,7 +54,7 @@ export const Test: FC = () => {
               </Button> 
             ))
           }
-        </div>
+        </Section>
       </LevelWrapper>
       {
         level !== 0 && type !== "" && (
@@ -68,10 +66,35 @@ export const Test: FC = () => {
 };
 
 const Wrapper = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
 `;
 
 const LevelWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+`;
+
+const Section = styled.div`
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Button = styled.button`
+  background-color: #9fb9e2;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;

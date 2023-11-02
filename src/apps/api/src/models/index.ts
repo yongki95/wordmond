@@ -1,3 +1,4 @@
+export * from './auth'
 export * from './question';
 export * from './test_history';
 export * from './user';

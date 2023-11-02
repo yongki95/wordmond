@@ -1,11 +1,14 @@
 import { gql, useMutation } from '@apollo/client';
+import CryptoJS from 'crypto-js';
 import React, { FC, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { getSecretKey } from '../../constants';
+
 const SIGN_UP = gql`
-  mutation CreateUser($data: CreateUserInput!) {
-    createUser(data: $data) {
+  mutation CreateUser($data: CreateUserInput!, $hmac: String!) {
+    createUser(data: $data, hmac: $hmac) {
       success
       error
       _id
@@ -19,6 +22,7 @@ export const SignUp: FC = () => {
   const [signupSuccess, setSignupSuccess] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();  
+  const SECRET_KEY = getSecretKey();
   
   const [createUser] = useMutation<{
     createUser: {
@@ -29,17 +33,17 @@ export const SignUp: FC = () => {
   }>(SIGN_UP);
 
   const validatePassword = (password: string) => {
-    const regex = /[!@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]+/;
+    const uppercasePattern = /[A-Z]/;
+    const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
 
     if(password.length <= 6) {
       return false;
     };
 
-    if(regex.test(password) !== false) {
-      return false;
-    };
-
-    return true;
+    const hasUppercase = uppercasePattern.test(password);
+    const hasSpecialChar = specialCharPattern.test(password);
+  
+    return hasUppercase && hasSpecialChar;
   };
 
   const validateEmail = (email: string) => {
@@ -47,8 +51,14 @@ export const SignUp: FC = () => {
     return regex.test(email);
   };
 
+  const generateHMAC = (message: string) => {
+    const hash = CryptoJS.HmacSHA256(message, SECRET_KEY);
+    return CryptoJS.enc.Hex.stringify(hash);
+  };
+
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const hmac = generateHMAC(email + password);
 
     const user = {
       email,
@@ -58,6 +68,7 @@ export const SignUp: FC = () => {
     const response = await createUser({
       variables: {
         data: user,
+        hmac,
       },
     });
     

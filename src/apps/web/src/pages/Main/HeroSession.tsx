@@ -7,7 +7,7 @@ import logo from '../../hero_image/8576.jpg';
 
 export const HeroSession: FC = () => {
   useAuth();
-  console.log(useAuth().hasSession);
+
   return (
     <Wrapper>
       <HeroText>

@@ -1,12 +1,16 @@
-import { useMutation, gql } from '@apollo/client';
-import { FC, useCallback, useState } from 'react';
+import { useMutation, gql, useQuery } from '@apollo/client';
+import CryptoJS from 'crypto-js';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { useAuth, useSetToken } from '../../auth';
+import { getSecretKey } from '../../constants';
+import { FacebookLoginButton } from '../../components/FacebookLoginButton';
+import { GoogleLoginButton } from '../../components/GoogleLoginButton';
 
 const LOG_IN = gql`
-  mutation LoginUser($data: LoginInput!) {
-    loginUser(data: $data) {
+  mutation LoginUser($data: LoginInput!, $hmac: String!) {
+    loginUser(data: $data, hmac: $hmac) {
       success
       error
       token
@@ -20,6 +24,7 @@ export const Login: FC = () => {
   const [email, setemail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const SECRET_KEY = getSecretKey()
 
   const [login] = useMutation<{
     loginUser: {
@@ -29,17 +34,24 @@ export const Login: FC = () => {
     },
   }>(LOG_IN);
 
+  const generateHMAC = (message: string) => {
+    const hash = CryptoJS.HmacSHA256(message, SECRET_KEY);
+    return CryptoJS.enc.Hex.stringify(hash);
+  };
+
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const hmac = generateHMAC(email + password);
 
     const { 
-      data 
+      data
     } = await login({
       variables: {
         data: {
           email, 
           password,
         },
+        hmac,
       },
     });
 
@@ -51,7 +63,7 @@ export const Login: FC = () => {
       setErrorMessage('Invalid email or password');
     };
   }, [setToken, email, password]);
-
+  
   if (hasSession === undefined) {
     return <>Loading...</>;
   };
@@ -79,9 +91,11 @@ export const Login: FC = () => {
             )
           }
           <LoginButton type='submit'>Login</LoginButton>
+          <GoogleLoginButton />
+          <FacebookLoginButton />
         </LoginForm>
       </Card>
-    </Wrapper>
+    </Wrapper>        
   );
 };
 

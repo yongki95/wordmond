@@ -31,7 +31,7 @@ export const Practice: FC = () => {
   return (
     <Wrapper>
       <LevelWrapper>
-        <div>
+        <Section>
           <h2>Choose Level</h2>
           {
             levels.map(({ id, label }) => (
@@ -43,8 +43,6 @@ export const Practice: FC = () => {
               </Button>
             ))
           }
-        </div>
-        <div>
           <h2>Choose Language Type</h2>
           {
             languageTypes.map((langType, index) => {
@@ -60,7 +58,7 @@ export const Practice: FC = () => {
               );
             })
           }
-        </div>
+        </Section>
       </LevelWrapper>
       {
         levelId && language && (
@@ -72,10 +70,35 @@ export const Practice: FC = () => {
 };
 
 const Wrapper = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
 `;
 
 const LevelWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+`;
+
+const Section = styled.div`
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Button = styled.button`
+  background-color: #9fb9e2;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;

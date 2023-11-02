@@ -13,30 +13,49 @@ export const WordTop: React.FC<WordTopProps> = ({
 }) => {
   return(
     <Wrapper>
-      <WordFlashchard level={level} index={index}/>
-      <button onClick={goLeft}>
+      <Button onClick={goLeft}>
         <FontAwesomeIcon 
           icon={faAngleDoubleLeft} 
           size='sm' 
-          style={{color: 'black'}}
         />
-      </button>
-      <button onClick={goRight}>
+      </Button>
+      <WordFlashchardWrapper>
+        <WordFlashchard level={level} index={index}/>
+      </WordFlashchardWrapper>
+      <Button onClick={goRight}>
         <FontAwesomeIcon 
           icon={faAngleDoubleRight} 
           size='sm' 
-          style={{color: 'black'}}
         />
-      </button>
+      </Button>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 8px;
 `;
 
-const LevelWrapper = styled.div`
+const WordFlashchardWrapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Button = styled.button`
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  color: #9fb9e2;
+  cursor: pointer;
+
+  &:hover {
+    color: #949999
+  }
 `;

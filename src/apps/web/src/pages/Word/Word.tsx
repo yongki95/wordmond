@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FC, useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
-import { WordTop } from './TopWord';
-import { COLUMN_WIDTH } from '../../constants';
 import { useAuth } from '../../auth';
+import { COLUMN_WIDTH } from '../../constants';
+import { WordTop } from './TopWord';
 
 const PAGINATE_WORDS_BY_LEVEL = gql`
   query PaginateWordByLevel($page: Int!, $limit: Int!, $level: Int!) {
@@ -115,9 +115,9 @@ export const Word: FC = () => {
 
   return (
     <Wrapper>
-       <LevelWrapper>
-        <div>
-          <h2>Choose Level</h2>
+      <LevelWrapper>
+        <LevelTitle>Choose Level</LevelTitle>
+        <ButtonGroup>
           {
             levels.map((level, index) => (
               <Button onClick={()=> {handleClick(level.id)}} 
@@ -125,7 +125,7 @@ export const Word: FC = () => {
               </Button>
             ))
           }
-        </div>
+        </ButtonGroup>
       </LevelWrapper>
       <WordTop 
         goLeft={goLeft} 
@@ -137,17 +137,13 @@ export const Word: FC = () => {
       <h3>Word List</h3>
       <PagenateWordsByLevel page={page} level={level}/>
       <ButtonWrapper>
-        <FontAwesomeIcon 
+        <IconButton 
           onClick={handlePreviousPage} 
           icon={faAngleDoubleLeft} 
-          size='sm' 
-          style={{color: 'black'}} 
         />
-        <FontAwesomeIcon 
+        <IconButton 
           onClick={handleNextPage} 
           icon={faAngleDoubleRight} 
-          size='sm' 
-          style={{color: 'black'}} 
         />
       </ButtonWrapper>
     </Wrapper>
@@ -155,31 +151,76 @@ export const Word: FC = () => {
 };
 
 const Wrapper = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
 `;
 
 const LevelWrapper = styled.div`
+  margin-bottom: 20px;
+`;
+
+const LevelTitle = styled.h2`
+  margin-bottom: 10px;
+  color: white;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 `;
 
 const Button = styled.button`
+  flex: 1;
+  color: white;
+  font-weight: bold;
+  background-color: #9fb9e2;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const IconButton = styled(FontAwesomeIcon)`
+  font-size: 20px;
+  color: #9fb9e2;
+  cursor: pointer;
+
+  &:hover {
+    color: #0056b3;
+  }
 `;
 
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 
   th, td {
-    border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    color: black;
   }
 
   tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #D5DEDE;
+    color: black;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #ffffff;
+    color: #black;
   }
 
   th {
-    background-color: #f0db4f;
-    color: black;
+    background-color: #9fb9e2;
+    color: white;
   }
 `;
 

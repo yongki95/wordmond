@@ -1,13 +1,13 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
+import bcrypt from 'bcryptjs';
 import { Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcryptjs';
 
 export class User extends Document {
   @prop({ required: true, unique: true })
   public email!: string;
   
-  @prop({ required: true })
+  @prop({ required: false })
   public password!: string;
 
   @prop({ default: uuidv4 })

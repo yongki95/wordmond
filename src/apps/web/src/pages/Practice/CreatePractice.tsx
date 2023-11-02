@@ -73,8 +73,8 @@ export const CreatePractice: FC<CreatePracticeAttributes> = ({ level, type }) =>
   }, [word, wordRefetch]);
   
 
-  if (wordLoading || optionLoading) return <div style={{display: 'none'}}>Loading...</div>;
-  if (wordError || optionError) return <div style={{display: 'none'}}>Error...</div>;
+  if (wordLoading || optionLoading) return <div>Loading...</div>;
+  if (wordError || optionError) return <div>Error...</div>;
   
   if (wordData?.word?.success && optionData?.option?.success) {
     const randomizedOptions = _.shuffle([
@@ -84,25 +84,48 @@ export const CreatePractice: FC<CreatePracticeAttributes> = ({ level, type }) =>
 
     return (
       <Wrapper>
-        <h2>{type ==='eng' && word.eng || type === 'kor' && word.kor}</h2>
+        <Word>{type ==='eng' && word.eng || type === 'kor' && word.kor}</Word>
         {
           randomizedOptions.map((option, index) => (
-            <p 
+            <Option
               key={index} 
               onClick={() => handleAnswer(option.eng)}
             >
               {index + 1}: {
-              type === 'eng' ? option.kor: type === 'kor'&& option.eng 
-            }
-            </p>          
+                type === 'eng' ? option.kor : type === 'kor' && option.eng 
+              }
+            </Option>
           ))
         }  
       </Wrapper>
     );
   };
 
-  return <div style={{display: 'none'}}>Error...</div>;
+  return <div>Error...</div>;
 };
 
 const Wrapper = styled.div`
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+`;
+
+const Word = styled.h2`
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+`;
+
+const Option = styled.p`
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #e1f5fe;
+    border-color: #b3e5fc;
+  }
 `;

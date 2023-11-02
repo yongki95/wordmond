@@ -1,12 +1,15 @@
 import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { App } from './App';
 import { AuthProvider } from './auth';
-import { GRAPHQL_ENDPOINT, LOCAL_STORAGE_KEY_TOKEN } from './constants';
+import { getGoogleAuthId, GRAPHQL_ENDPOINT, LOCAL_STORAGE_KEY_TOKEN } from './constants';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+
+const GOOGLE_AUTH_CLIENT_ID = getGoogleAuthId();
 
 const httpLink = new HttpLink({ uri: GRAPHQL_ENDPOINT });
 
@@ -35,7 +38,9 @@ root.render(
   <ApolloProvider client={client}>
     <React.StrictMode>
       <AuthProvider>
-        <App />
+        <GoogleOAuthProvider clientId={GOOGLE_AUTH_CLIENT_ID}>
+          <App />
+        </GoogleOAuthProvider>
       </AuthProvider>
     </React.StrictMode>
   </ApolloProvider>

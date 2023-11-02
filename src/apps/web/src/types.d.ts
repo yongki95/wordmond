@@ -74,3 +74,40 @@ type TestHistory = {
   language: string;
   questions: string[];
 };
+
+type googleResponse = {
+  clientId?: string;
+  credential?: string;
+  select_by?: string;
+};
+
+type GoogleUserCredential = {
+  aud: string;
+  azp: string;
+  email: string;
+  email_verified: boolean;
+  exp: number;
+  family_name: string;
+  given_name: string;
+  iat: number;
+  iss: string;
+  jti: string;
+  locale: string;
+  name: string;
+  nbf: number;
+  picture: string;
+  sub: string;
+};
+
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
+type GoogleResponse = {
+  clientId: string;
+  client_id: string;
+  credential: string;
+  select_by: string;
+};

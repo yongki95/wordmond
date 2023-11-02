@@ -1,11 +1,12 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
-import { config } from 'dotenv';
+import dotenv from 'dotenv';
 import express from 'express';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { createServer } from 'http';
 import mongoose from 'mongoose';
+import passport from 'passport';
 import { WebSocketServer } from 'ws';
 
 import { PORT, MONGO_URI } from './constants';
@@ -14,26 +15,22 @@ import { GraphqlContext } from './graphql/type';
 import { UserModel } from './models';
 import { app as restApi } from './rest/index';
 
-
 const start = async () => {
-  config({ path: './api/.env' });
-
+  dotenv.config();
+  
   const app = express();
-  const SECRET_KEY = process.env.SECRET_KEY || 'default_key';
   
-  app.use(cors());
-  
-	app.use('/', restApi);
-    
+  app.use(cors());  
+  app.use('/', restApi);
 
   const schema = makeExecutableSchema({ typeDefs, resolvers });
   const apolloServer = new ApolloServer<GraphqlContext>({
-    schema,
+    schema, 
     context: async ({ req }) => {
       try {
         const token = (req.headers.authorization || '').split(' ')[1];
         const user = await UserModel.findOne({ token });
-
+        
         return {
           user,
           req,
@@ -46,7 +43,7 @@ const start = async () => {
       }
     },
   });
-
+  
   await apolloServer.start();
   
   apolloServer.applyMiddleware({
@@ -67,7 +64,7 @@ const start = async () => {
     server: server,
     path:'/graphql',
   }); 
-
+  
   useServer({ schema }, wsServer);
 };
 

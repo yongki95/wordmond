@@ -24,6 +24,12 @@ export const typeDefs = gql`
     ): PaginateTestHistoryResult!
   }
 
+  type Auth {
+    _id: ID!
+    authType: String!
+    authId: String!
+  }
+
   type Question {
     _id: ID!
     word: String!
@@ -195,7 +201,25 @@ export const typeDefs = gql`
     error: String
     token: String
   }
-  
+
+  type GoogleLoginUserResult {
+    success: Boolean!
+    error: String
+    token: String
+  }
+
+  type AuthenticateGoogleResult {
+    success: Boolean!
+    error: String
+    token: String
+  }
+
+  type AuthenticateFacebookResult {
+    success: Boolean!
+    error: String
+    token: String
+  }
+
   type Query {
     me: User
 
@@ -269,10 +293,12 @@ export const typeDefs = gql`
 
     createUser(
       data: CreateUserInput!
+      hmac: String!
     ): CreateUserResult!
 
     loginUser(
       data: LoginInput!
+      hmac: String!
     ): LoginUserResult!
 
     saveTestQuestion(
@@ -282,5 +308,15 @@ export const typeDefs = gql`
     saveTestHistory(
       data: TestHistoryInput!
     ): SaveTestHistoryResult!
+
+    authenticateGoogle(
+      googleResponse: String!
+    ): AuthenticateGoogleResult!
+
+    authenticateFacebook(
+      responsedEmail: String!
+      provider: String!
+      providerSub: String!    
+    ): AuthenticateFacebookResult!
   }
 `;
