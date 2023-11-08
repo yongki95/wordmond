@@ -6,12 +6,12 @@ import express from 'express';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { createServer } from 'http';
 import mongoose from 'mongoose';
-import passport from 'passport';
 import { WebSocketServer } from 'ws';
 
 import { PORT, MONGO_URI } from './constants';
 import { resolvers, typeDefs } from './graphql';
 import { GraphqlContext } from './graphql/type';
+import { init } from './init';
 import { UserModel } from './models';
 import { app as restApi } from './rest/index';
 
@@ -54,6 +54,8 @@ const start = async () => {
   
   await mongoose.connect(MONGO_URI);
   
+  init();
+
   const server = createServer(app);  
   server.listen({ port: PORT }, () => {
     console.log(`http://localhost:${PORT}`);

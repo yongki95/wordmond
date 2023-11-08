@@ -29,3 +29,13 @@ export type GoogleUserCredential = {
   picture: string;
   sub: string;
 };
+
+export type WordEntry = {
+  level: number;
+  eng: string;
+  kor: string;
+};
+
+export type SampleWordsByLevel = {
+  [key: number]: WordEntry[];
+};
